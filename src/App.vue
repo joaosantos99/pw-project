@@ -1,9 +1,11 @@
 <script>
+  import Sidebar from './components/sidebar.vue'
   import { RouterView } from 'vue-router'
 
   export default {
     name: 'App',
     components: {
+      Sidebar,
       RouterView,
     },
   }
@@ -11,6 +13,7 @@
 
 <template>
   <div class="flex">
+    <Sidebar />
     <RouterView />
   </div>
 </template>

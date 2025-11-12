@@ -42,6 +42,6 @@
       :is="icon"
       size="22"
     />
-    <span :class="{ 'text-brand-white': isActive }">{{ label }}</span>
+    <span :class="[{ 'text-brand-white': isActive }]">{{ label }}</span>
   </RouterLink>
 </template>

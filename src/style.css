@@ -1,14 +1,18 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-brand-white: #F6F7EB;
   --color-brand-primary: #3E43F0;
   --color-brand-secondary: #E54B4F;
+  --color-brand-white: #F6F7EB;
+  --color-brand-black: #353535;
+  --color-brand-gray: #E5E5DA;
 }
 
 @layer base {
   body {
     @apply text-brand-primary;
+    @apply text-sm;
+    font-family: 'Geist Mono', 'Inter', sans-serif;
   }
 
   body {

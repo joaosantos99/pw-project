@@ -1,9 +1,19 @@
 <script>
-export default {
-  name: 'SessionsView',
-}
+  import ContentHeader from '../components/ContentHeader.vue'
+  import Button from '../components/Button.vue'
+  export default {
+    name: 'SessionsView',
+
+    components: {
+      ContentHeader,
+      Button,
+    },
+  }
 </script>
 
 <template>
-  <h2>SessionsView</h2>
+  <ContentHeader
+    title="Study Sessions"
+    paragraph="View and manage your study sessions"
+  />
 </template>

@@ -18,4 +18,13 @@
   body {
     @apply bg-brand-white;
   }
+
+  h1 {
+    @apply text-3xl font-bold
+  }
+
+  h2 {
+    @apply text-base
+  }
 }
+

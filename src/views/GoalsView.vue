@@ -1,29 +1,34 @@
 <script>
   import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/Button.vue'
+  import Button from '../components/primitives/Button.vue'
+  import PageWrapper from '../components/PageWrapper.vue'
   import {
       TargetIcon,
     } from 'lucide-vue-next'
 
-export default {
-  name: 'GoalsView',
+  export default {
+    name: 'GoalsView',
 
-  data: () => ({
-    TargetIcon,
-  }),
+    data: () => ({
+      TargetIcon,
+    }),
 
-  components: {
-    ContentHeader,
-    Button,
-  },
-}
+    components: {
+      ContentHeader,
+      Button,
+      PageWrapper,
+    },
+  }
 </script>
 
 <template>
-  <ContentHeader
-    title="Goals"
-    paragraph="Set and track your study goals"
-    buttonLabel="Add Goals"
-    :buttonIcon="TargetIcon"
-  />
+  <PageWrapper>
+    <ContentHeader
+      title="Goals"
+      paragraph="Set and track your study goals"
+      buttonLabel="Add Goals"
+      :buttonIcon="TargetIcon"
+    />
+    <div class="flex flex-col gap-6"></div>
+  </PageWrapper>
 </template>

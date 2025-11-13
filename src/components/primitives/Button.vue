@@ -1,5 +1,5 @@
 <script>
-  import { BUTTON_VARIANTS, BUTTON_VARIANT_CLASSES } from '../constants/buttons'
+  import { BUTTON_VARIANTS, BUTTON_VARIANT_CLASSES } from '../../constants/buttons'
 
   export default {
     name: 'Button',
@@ -8,7 +8,7 @@
       BUTTON_VARIANTS,
       BUTTON_VARIANT_CLASSES,
     }),
-  
+
     props: ({
       icon: {
         type: Function,
@@ -25,9 +25,9 @@
       },
       onClick: {
         type: Function,
-        required: false 
+        required: false
       }
-    }) 
+    })
   }
 </script>
 
@@ -43,4 +43,3 @@
     <slot/>
   </button>
 </template>
-

@@ -12,8 +12,5 @@
 </script>
 
 <template>
-  <div class="flex">
-    <Sidebar />
-    <RouterView />
-  </div>
+  <RouterView />
 </template>

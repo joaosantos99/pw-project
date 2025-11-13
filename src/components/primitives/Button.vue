@@ -33,7 +33,7 @@
 
 <template>
   <button
-    :class="['flex px-4 py-3 gap-2 cursor-pointer', BUTTON_VARIANT_CLASSES[variant]]"
+    :class="['flex justify-center px-4 py-3 gap-2 cursor-pointer', BUTTON_VARIANT_CLASSES[variant]]"
     @click="onClick"
   >
     <component

@@ -1,9 +1,19 @@
 <script>
-export default {
-  name: 'ProfileView',
-}
+  import ContentHeader from '../components/ContentHeader.vue'
+  import Button from '../components/Button.vue'
+  export default {
+    name: 'ProfileView',
+
+    components: {
+      ContentHeader,
+      Button,
+    },
+  }
 </script>
 
 <template>
-  <h2>ProfileView</h2>
+  <ContentHeader
+    title="Profile & Settings"
+    paragraph="Manage your account and preferences"
+  />
 </template>

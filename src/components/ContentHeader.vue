@@ -1,7 +1,7 @@
 <script>
-  import Button from '../components/Button.vue'
+  import Button from '../components/primitives/Button.vue'
   import { BUTTON_VARIANTS } from '../constants/buttons'
-  
+
   export default {
     name: 'ContentHeader',
 
@@ -34,7 +34,7 @@
 </script>
 
 <template>
-  <div class="w-full h-fit flex items-start justify-between p-6">
+  <div class="w-full h-fit flex items-start justify-between">
     <div class="flex flex-col">
       <h1>{{ title }}</h1>
       <h2>{{ paragraph }}</h2>

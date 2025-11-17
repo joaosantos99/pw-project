@@ -1,10 +1,12 @@
 <script>
-  import Sidebar from './components/sidebar.vue'
+  import Header from './components/Header.vue'
+  import Sidebar from './components/Sidebar.vue'
   import { RouterView } from 'vue-router'
 
   export default {
     name: 'App',
     components: {
+      Header,
       Sidebar,
       RouterView,
     },

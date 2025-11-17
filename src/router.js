@@ -6,9 +6,11 @@ import GoalsView from './views/GoalsView.vue'
 import SubjectsView from './views/SubjectsView.vue'
 import SessionsView from './views/SessionsView.vue'
 import ProfileView from './views/ProfileView.vue'
+import SignupView from './views/SignupView.vue'
 
 const routes = [
   { path: '/', component: HomeView },
+  { path: '/signup', component: SignupView },
   { path: '/timer', component: TimerView },
   { path: '/goals', component: GoalsView },
   { path: '/subjects', component: SubjectsView },

@@ -14,7 +14,7 @@
         type: Function,
           required: false,
         },
-      disable: {
+      disabled: {
         type: Boolean,
         default: false
       },

@@ -1,35 +1,26 @@
 <script>
-  import Button from '../components/primitives/Button.vue'
-  import Card from '../components/primitives/Card.vue'
-  import {
-    BookOpenIcon,
-  } from 'lucide-vue-next'
-import { BUTTON_VARIANTS } from '../constants/buttons';
- 
-  export default {
-    name: 'Subjects',
+import { BookOpenIcon } from "lucide-vue-next";
+import { BUTTON_VARIANTS } from "@/constants/buttons";
 
-    data : () => ({
-      BookOpenIcon,
-      BUTTON_VARIANTS,
-    }),
+export default {
+	name: "Subjects",
 
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
-      subtitle: {
-        type: String,
-        required: false,
-      },
-    },
+	data: () => ({
+		BookOpenIcon,
+		BUTTON_VARIANTS,
+	}),
 
-    components: {
-      Card,
-      Button,
-    },
-  }
+	props: {
+		title: {
+			type: String,
+			required: true,
+		},
+		subtitle: {
+			type: String,
+			required: false,
+		},
+	},
+};
 </script>
 
 <template>

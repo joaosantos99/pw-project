@@ -1,8 +1,8 @@
-import { API_URL } from './env'
+import { API_URL } from "@/constants/env";
 
-export const apiUsersUrl = `${API_URL}/users`
+export const apiUsersUrl = `${API_URL}/users`;
 
-export const apiLoginUrl = apiUsersUrl
-export const apiSignupUrl = apiUsersUrl
+export const apiLoginUrl = apiUsersUrl;
+export const apiSignupUrl = apiUsersUrl;
 
-export const apiSessionsUrl = `${API_URL}/sessions`
+export const apiSessionsUrl = `${API_URL}/sessions`;

@@ -1,25 +1,20 @@
 <script>
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
+import { PlayIcon } from "lucide-vue-next";
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
 
-  import {
-    PlayIcon
-  } from 'lucide-vue-next'
+export default {
+	name: "HomeView",
 
-  export default {
-    name: 'HomeView',
+	data: () => ({
+		PlayIcon,
+	}),
 
-    data: () => ({
-      PlayIcon,
-    }),
-
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-    },
-  }
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
+};
 </script>
 
 <template>

@@ -1,33 +1,31 @@
 <script>
-  import { LogOutIcon } from 'lucide-vue-next'
-  import { mapActions } from 'pinia'
+import { LogOutIcon } from "lucide-vue-next";
+import { mapActions } from "pinia";
 
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import { useAuthStore } from '../stores/auth'
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import { useAuthStore } from "@/stores/auth";
 
-  export default {
-    name: 'ProfileView',
+export default {
+	name: "ProfileView",
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-    },
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
 
-    data: () => ({
-      LogOutIcon,
-    }),
+	data: () => ({
+		LogOutIcon,
+	}),
 
-    methods: {
-      ...mapActions(useAuthStore, ['logout']),
-      async handleLogout() {
-        await this.logout()
-        this.$router.push('/login')
-      },
-    },
-  }
+	methods: {
+		...mapActions(useAuthStore, ["logout"]),
+		async handleLogout() {
+			await this.logout();
+			this.$router.push("/login");
+		},
+	},
+};
 </script>
 
 <template>

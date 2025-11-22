@@ -1,80 +1,80 @@
 <script>
-  import {
-    BookMarkedIcon,
-    BookOpenIcon,
-    LayoutDashboardIcon,
-    TimerIcon,
-    TargetIcon,
-    UserIcon,
-  } from 'lucide-vue-next'
+import {
+	BookMarkedIcon,
+	BookOpenIcon,
+	LayoutDashboardIcon,
+	TargetIcon,
+	TimerIcon,
+	UserIcon,
+} from "lucide-vue-next";
 
-  import MenuItem from './MenuItem.vue'
+import MenuItem from "@/components/MenuItem.vue";
 
-  export default {
-    name: 'Sidebar',
+export default {
+	name: "Sidebar",
 
-    components: {
-      MenuItem,
-    },
+	components: {
+		MenuItem,
+	},
 
-    data() {
-      return {
-        menuItems: [
-          {
-            icon: LayoutDashboardIcon,
-            label: 'Home',
-            to: '/',
-          },
-          {
-            icon: TimerIcon,
-            label: 'Timer',
-            to: '/timer',
-          },
-          {
-            icon: TargetIcon,
-            label: 'Goals',
-            to: '/goals',
-          },
-          {
-            icon: BookMarkedIcon,
-            label: 'Subjects',
-            to: '/subjects',
-          },
-          {
-            icon: BookOpenIcon,
-            label: 'Sessions',
-            to: '/sessions',
-          },
-          {
-            icon: UserIcon,
-            label: 'Profile',
-            to: '/profile',
-          },
-        ],
-      }
-    },
+	data() {
+		return {
+			menuItems: [
+				{
+					icon: LayoutDashboardIcon,
+					label: "Home",
+					to: "/",
+				},
+				{
+					icon: TimerIcon,
+					label: "Timer",
+					to: "/timer",
+				},
+				{
+					icon: TargetIcon,
+					label: "Goals",
+					to: "/goals",
+				},
+				{
+					icon: BookMarkedIcon,
+					label: "Subjects",
+					to: "/subjects",
+				},
+				{
+					icon: BookOpenIcon,
+					label: "Sessions",
+					to: "/sessions",
+				},
+				{
+					icon: UserIcon,
+					label: "Profile",
+					to: "/profile",
+				},
+			],
+		};
+	},
 
-    methods: {
-      isActivePath(path) {
-        if (path === '/') {
-          return this.$route.fullPath === '/'
-        }
+	methods: {
+		isActivePath(path) {
+			if (path === "/") {
+				return this.$route.fullPath === "/";
+			}
 
-        return this.$route.fullPath.includes(path)
-      },
-    },
+			return this.$route.fullPath.includes(path);
+		},
+	},
 
-    setup() {
-      return {
-        LayoutDashboardIcon,
-        TimerIcon,
-        TargetIcon,
-        BookMarkedIcon,
-        BookOpenIcon,
-        UserIcon,
-      }
-    },
-  }
+	setup() {
+		return {
+			LayoutDashboardIcon,
+			TimerIcon,
+			TargetIcon,
+			BookMarkedIcon,
+			BookOpenIcon,
+			UserIcon,
+		};
+	},
+};
 </script>
 
 <template>

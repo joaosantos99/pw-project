@@ -1,28 +1,28 @@
 <script>
-  import Sidebar from './Sidebar.vue'
-  import Header from './Header.vue'
-  import { LAYOUTS } from '../constants/layout'
+import Header from "@/components/Header.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import { LAYOUTS } from "@/constants/layout";
 
-  export default {
-    name: 'PageWrapper',
+export default {
+	name: "PageWrapper",
 
-    components: {
-      Sidebar,
-      Header,
-    },
+	components: {
+		Sidebar,
+		Header,
+	},
 
-    data: () => ({
-      LAYOUTS,
-    }),
+	data: () => ({
+		LAYOUTS,
+	}),
 
-    props: {
-      layout: {
-        type: String,
-        default: LAYOUTS.DEFAULT,
-        validator: (value) => Object.values(LAYOUTS).includes(value),
-      }
-    }
-  }
+	props: {
+		layout: {
+			type: String,
+			default: LAYOUTS.DEFAULT,
+			validator: (value) => Object.values(LAYOUTS).includes(value),
+		},
+	},
+};
 </script>
 
 <template>

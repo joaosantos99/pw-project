@@ -1,34 +1,34 @@
 <script>
-  export default {
-    name: 'InputField',
+export default {
+	name: "InputField",
 
-    props: {
-      id: {
-        type: String,
-        required: true
-      },
-      label: {
-        type: String,
-        required: true
-      },
-      placeholder: {
-        type: String,
-        required: true
-      },
-      type: {
-        type: String,
-        required: true
-      },
-      name: {
-        type: String,
-        required: true
-      },
-      error: {
-        type: String,
-        required: false
-      },
-    },
-  }
+	props: {
+		id: {
+			type: String,
+			required: true,
+		},
+		label: {
+			type: String,
+			required: true,
+		},
+		placeholder: {
+			type: String,
+			required: true,
+		},
+		type: {
+			type: String,
+			required: true,
+		},
+		name: {
+			type: String,
+			required: true,
+		},
+		error: {
+			type: String,
+			required: false,
+		},
+	},
+};
 </script>
 
 <template>

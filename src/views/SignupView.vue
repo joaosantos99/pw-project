@@ -1,75 +1,75 @@
 <script>
-  import { mapActions, mapState } from 'pinia'
+import { mapActions, mapState } from "pinia";
 
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import Card from '../components/primitives/Card.vue'
-  import InputField from '../components/primitives/InputField.vue'
-  import { LAYOUTS } from '../constants/layout'
-  import { useAuth } from '../composables/useAuth'
-  import { useAuthStore } from '../stores/auth'
-  import { validateEmail, validateSignupPassword } from '../utils/validators'
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import { useAuth } from "@/composables/useAuth";
+import { LAYOUTS } from "@/constants/layout";
+import { useAuthStore } from "@/stores/auth";
+import { validateEmail, validateSignupPassword } from "@/utils/validators";
 
-  export default {
-    name: 'SignupView',
+export default {
+	name: "SignupView",
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-      Card,
-      InputField,
-    },
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
 
-    computed: {
-      ...mapState(useAuthStore, ['isAuthenticated']),
-    },
+	computed: {
+		...mapState(useAuthStore, ["isAuthenticated"]),
+	},
 
-    data: () => ({
-      LAYOUTS,
-      errors: {
-        name: null,
-        email: null,
-        password: null,
-        confirmPassword: null,
-      }
-    }),
+	data: () => ({
+		LAYOUTS,
+		errors: {
+			name: null,
+			email: null,
+			password: null,
+			confirmPassword: null,
+		},
+	}),
 
-    methods: {
-      ...mapActions(useAuth, ['signup']),
-      async handleSignup(e) {
-        const formData = new FormData(e.target)
+	methods: {
+		...mapActions(useAuth, ["signup"]),
+		async handleSignup(e) {
+			const formData = new FormData(e.target);
 
-        const name = formData.get('name')
-        const email = formData.get('email')
-        const password = formData.get('password')
-        const confirmPassword = formData.get('confirmPassword')
+			const name = formData.get("name");
+			const email = formData.get("email");
+			const password = formData.get("password");
+			const confirmPassword = formData.get("confirmPassword");
 
-        this.errors.name = !name ? 'Name is required' : null
-        this.errors.email = validateEmail(email)
-        this.errors.password = validateSignupPassword(password)
-        console.log('password', password)
-        console.log('confirmPassword', confirmPassword)
-        this.errors.confirmPassword = password !== confirmPassword ? 'Passwords do not match' : null
+			this.errors.name = !name ? "Name is required" : null;
+			this.errors.email = validateEmail(email);
+			this.errors.password = validateSignupPassword(password);
+			console.log("password", password);
+			console.log("confirmPassword", confirmPassword);
+			this.errors.confirmPassword =
+				password !== confirmPassword ? "Passwords do not match" : null;
 
-        if (this.errors.name || this.errors.email || this.errors.password || this.errors.confirmPassword) {
-          return
-        }
+			if (
+				this.errors.name ||
+				this.errors.email ||
+				this.errors.password ||
+				this.errors.confirmPassword
+			) {
+				return;
+			}
 
-        try {
-          await this.signup(name, email, password)
-        } catch (error) {
-          console.error('Error signing up:', error)
-          this.error = error.message
-        } finally {
-          if (this.isAuthenticated) {
-            this.$router.push('/')
-          }
-        }
-      },
-    },
-  }
+			try {
+				await this.signup(name, email, password);
+			} catch (error) {
+				console.error("Error signing up:", error);
+				this.error = error.message;
+			} finally {
+				if (this.isAuthenticated) {
+					this.$router.push("/");
+				}
+			}
+		},
+	},
+};
 </script>
 
 <template>

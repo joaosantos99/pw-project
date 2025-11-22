@@ -1,24 +1,20 @@
 <script>
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import {
-      TargetIcon,
-    } from 'lucide-vue-next'
+import { TargetIcon } from "lucide-vue-next";
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
 
-  export default {
-    name: 'GoalsView',
+export default {
+	name: "GoalsView",
 
-    data: () => ({
-      TargetIcon,
-    }),
+	data: () => ({
+		TargetIcon,
+	}),
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-    },
-  }
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
+};
 </script>
 
 <template>

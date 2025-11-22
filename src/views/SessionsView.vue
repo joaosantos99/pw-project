@@ -1,35 +1,22 @@
 <script>
-  import {
-    BookOpen,
-    Filter,
-    Trash2,
-    Search,
-    Clock
-  } from 'lucide-vue-next';
+import { BookOpen, Clock, Filter, Search, Trash2 } from "lucide-vue-next";
 
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import Card from '../components/primitives/Card.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import InputField from '../components/primitives/InputField.vue'
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
 
-  export default {
-    name: 'SessionsView',
+export default {
+	name: "SessionsView",
 
-    components: {
-      ContentHeader,
-      Button,
-      Card,
-      PageWrapper,
-      InputField,
-
-      Search,
-      BookOpen,
-      Filter,
-      Trash2,
-      Clock
-    },
-  }
+	components: {
+		ContentHeader,
+		PageWrapper,
+		Search,
+		BookOpen,
+		Filter,
+		Trash2,
+		Clock,
+	},
+};
 </script>
 
 <template>
@@ -92,7 +79,7 @@
           <form @submit.prevent class="flex gap-2.5 mb-8 items-center">
             <InputField class="w-full" placeholder="Search sessions..."/>
             <Button :icon="Filter" variant="outline" class="flex">
-              <Filter size="18" /> 
+              <Filter size="18" />
               <div>
                 Filter
               </div>

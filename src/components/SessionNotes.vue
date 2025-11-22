@@ -1,37 +1,27 @@
 <script>
-  import Button from '../components/primitives/Button.vue'
-  import Card from '../components/primitives/Card.vue'
-  import {
-    FileTextIcon,
-    SaveIcon,
-  } from 'lucide-vue-next'
-import { BUTTON_VARIANTS } from '../constants/buttons';
- 
-  export default {
-    name: 'SessionNotes',
+import { FileTextIcon, SaveIcon } from "lucide-vue-next";
+import { BUTTON_VARIANTS } from "@/constants/buttons";
 
-    data : () => ({
-      FileTextIcon,
-      SaveIcon,
-      BUTTON_VARIANTS,
-    }),
+export default {
+	name: "SessionNotes",
 
-    props: {
-      title: {
-        type: String,
-        required: true,
-      },
-      subtitle: {
-        type: String,
-        required: false,
-      },
-    },
+	data: () => ({
+		FileTextIcon,
+		SaveIcon,
+		BUTTON_VARIANTS,
+	}),
 
-    components: {
-      Card,
-      Button,
-    },
-  }
+	props: {
+		title: {
+			type: String,
+			required: true,
+		},
+		subtitle: {
+			type: String,
+			required: false,
+		},
+	},
+};
 </script>
 
 <template>

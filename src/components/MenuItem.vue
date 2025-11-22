@@ -1,32 +1,32 @@
 <script>
-  import { RouterLink } from 'vue-router'
+import { RouterLink } from "vue-router";
 
-  export default {
-    name: 'MenuItem',
+export default {
+	name: "MenuItem",
 
-    components: {
-      RouterLink,
-    },
+	components: {
+		RouterLink,
+	},
 
-    props: {
-      icon: {
-        type: Function,
-        required: true
-      },
-      isActive: {
-        type: Boolean,
-        default: false
-      },
-      label: {
-        type: String,
-        required: true
-      },
-      to: {
-        type: String,
-        required: true
-      },
-    },
-  }
+	props: {
+		icon: {
+			type: Function,
+			required: true,
+		},
+		isActive: {
+			type: Boolean,
+			default: false,
+		},
+		label: {
+			type: String,
+			required: true,
+		},
+		to: {
+			type: String,
+			required: true,
+		},
+	},
+};
 </script>
 
 <template>

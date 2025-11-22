@@ -1,30 +1,29 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #3E43F0;
-  --color-brand-secondary: #E54B4F;
-  --color-brand-white: #F6F7EB;
-  --color-brand-black: #353535;
-  --color-brand-gray: #E5E5DA;
+	--color-brand-primary: #3e43f0;
+	--color-brand-secondary: #e54b4f;
+	--color-brand-white: #f6f7eb;
+	--color-brand-black: #353535;
+	--color-brand-gray: #e5e5da;
 }
 
 @layer base {
-  body {
-    @apply text-brand-primary;
-    @apply text-sm;
-    font-family: 'Geist Mono', 'Inter', sans-serif;
-  }
+	body {
+		@apply text-brand-primary;
+		@apply text-sm;
+		font-family: "Geist Mono", "Inter", sans-serif;
+	}
 
-  body {
-    @apply bg-brand-white;
-  }
+	body {
+		@apply bg-brand-white;
+	}
 
-  h1 {
-    @apply text-3xl font-bold
-  }
+	h1 {
+		@apply text-3xl font-bold;
+	}
 
-  h2 {
-    @apply text-base
-  }
+	h2 {
+		@apply text-base;
+	}
 }
-

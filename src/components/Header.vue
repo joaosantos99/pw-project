@@ -1,19 +1,15 @@
 <script>
-  import {
-    Flame,
-    Target,
-    Sun
-  } from 'lucide-vue-next';
+import { Flame, Sun, Target } from "lucide-vue-next";
 
-  export default {
-    name: 'Header',
+export default {
+	name: "Header",
 
-    components: {
-      Flame,
-      Target,
-      Sun,
-    },
-  }
+	components: {
+		Flame,
+		Target,
+		Sun,
+	},
+};
 </script>
 
 <template>

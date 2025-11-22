@@ -1,17 +1,15 @@
 <script>
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
 
-  export default {
-    name: 'SubjectsView',
+export default {
+	name: "SubjectsView",
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-    },
-  }
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
+};
 </script>
 
 <template>

@@ -1,69 +1,63 @@
 <script>
-  import { mapActions, mapState } from 'pinia'
+import { mapActions, mapState } from "pinia";
 
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import Card from '../components/primitives/Card.vue'
-  import InputField from '../components/primitives/InputField.vue'
-  import { LAYOUTS } from '../constants/layout'
-  import { validateEmail } from '../utils/validators'
-  import { useAuthStore } from '../stores/auth'
-  import { useAuth } from '../composables/useAuth'
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import { useAuth } from "@/composables/useAuth";
+import { LAYOUTS } from "@/constants/layout";
+import { useAuthStore } from "@/stores/auth";
+import { validateEmail } from "@/utils/validators";
 
-  export default {
-    name: 'LoginView',
+export default {
+	name: "LoginView",
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-      Card,
-      InputField,
-    },
+	components: {
+		ContentHeader,
+		PageWrapper,
+	},
 
-    data: () => ({
-      LAYOUTS,
-      email: '',
-      password: '',
-      loading: false,
-      errors: {
-        email: null,
-        password: null,
-      }
-    }),
+	data: () => ({
+		LAYOUTS,
+		email: "",
+		password: "",
+		loading: false,
+		errors: {
+			email: null,
+			password: null,
+		},
+	}),
 
-    computed: {
-      ...mapState(useAuthStore, ['isAuthenticated']),
-    },
+	computed: {
+		...mapState(useAuthStore, ["isAuthenticated"]),
+	},
 
-    methods: {
-      ...mapActions(useAuth, ['login']),
-      async handleLogin(e) {
-        const formData = new FormData(e.target)
-        const email = formData.get('email')
-        const password = formData.get('password')
+	methods: {
+		...mapActions(useAuth, ["login"]),
+		async handleLogin(e) {
+			const formData = new FormData(e.target);
+			const email = formData.get("email");
+			const password = formData.get("password");
 
-        this.errors.email = validateEmail(email)
-        this.errors.password = !!password && null
+			this.errors.email = validateEmail(email);
+			this.errors.password = !!password && null;
 
-        if (this.errors.email || this.errors.password) {
-          return
-        }
+			if (this.errors.email || this.errors.password) {
+				return;
+			}
 
-        try {
-          await this.login(email, password)
-        } catch (error) {
-          console.error('Error logging in:', error)
-          this.error = error.message
-        } finally {
-          if (this.isAuthenticated) {
-            this.$router.push('/')
-          }
-        }
-      },
-    },
-  }
+			try {
+				await this.login(email, password);
+			} catch (error) {
+				console.error("Error logging in:", error);
+				this.error = error.message;
+			} finally {
+				if (this.isAuthenticated) {
+					this.$router.push("/");
+				}
+			}
+		},
+	},
+};
 </script>
 
 <template>

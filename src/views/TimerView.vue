@@ -1,27 +1,23 @@
 <script>
-  import ContentHeader from '../components/ContentHeader.vue'
-  import Button from '../components/primitives/Button.vue'
-  import PageWrapper from '../components/PageWrapper.vue'
-  import Card from '../components/primitives/Card.vue'
-  import Timer from '../components/Timer.vue'
-  import Subjects from '../components/Subjects.vue'
-  import QuickPresets from '../components/QuickPresets.vue'
-  import SessionNotes from '../components/SessionNotes.vue'
-  
-  export default {
-    name: 'TimerView',
+import ContentHeader from "@/components/ContentHeader.vue";
+import PageWrapper from "@/components/PageWrapper.vue";
+import QuickPresets from "@/components/QuickPresets.vue";
+import SessionNotes from "@/components/SessionNotes.vue";
+import Subjects from "@/components/Subjects.vue";
+import Timer from "@/components/Timer.vue";
 
-    components: {
-      ContentHeader,
-      Button,
-      PageWrapper,
-      Card,
-      Timer,
-      Subjects,
-      QuickPresets,
-      SessionNotes,
-    },
-  }
+export default {
+	name: "TimerView",
+
+	components: {
+		ContentHeader,
+		PageWrapper,
+		Timer,
+		Subjects,
+		QuickPresets,
+		SessionNotes,
+	},
+};
 </script>
 
 <template>

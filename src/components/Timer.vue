@@ -1,24 +1,14 @@
 <script>
-  import Button from '../components/primitives/Button.vue'
-  import Card from '../components/primitives/Card.vue'
-  import {
-    PlayIcon,
-    RotateCcwIcon
-  } from 'lucide-vue-next'
-  
-  export default {
-    name: 'Timer',
+import { PlayIcon, RotateCcwIcon } from "lucide-vue-next";
 
-    data: () => ({
-      PlayIcon,
-      RotateCcwIcon,
-    }),
+export default {
+	name: "Timer",
 
-    components: {
-      Button,
-      Card,
-    }
-  }
+	data: () => ({
+		PlayIcon,
+		RotateCcwIcon,
+	}),
+};
 </script>
 
 <template>

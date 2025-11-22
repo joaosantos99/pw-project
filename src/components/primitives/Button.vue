@@ -26,6 +26,10 @@
       onClick: {
         type: Function,
         required: false
+      },
+      subtitle: {
+        type: String,
+        required: false
       }
     })
   }
@@ -33,13 +37,25 @@
 
 <template>
   <button
-    :class="['flex justify-center px-4 py-3 gap-2 cursor-pointer', BUTTON_VARIANT_CLASSES[variant]]"
+    :class="[
+      'flex justify-center px-6 py-4 gap-2 cursor-pointer items-center',
+      BUTTON_VARIANT_CLASSES[variant]
+    ]"
     @click="onClick"
   >
     <component
+      v-if="icon"
       :is="icon"
       size="22"
     />
-    <slot/>
+    
+    <div class="flex flex-col text-left leading-tight">
+      <span class="font-semibold">
+        <slot/>
+      </span>
+      <span class="text-sm opacity-90">
+        {{ subtitle }}
+      </span>
+    </div>
   </button>
 </template>

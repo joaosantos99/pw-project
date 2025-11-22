@@ -1,6 +1,12 @@
 <script>
 import { ClockIcon } from "lucide-vue-next";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
+import {
+	TIMES_PERSETS,
+	TIMES_PERSETS_LABELS,
+	TIMES_PRESETS_DESCRIPTIONS,
+	TIMES_PRESETS_BREAK_DURATION,
+} from "@/constants/times";
 
 export default {
 	name: "Subjects",
@@ -8,6 +14,10 @@ export default {
 	data: () => ({
 		ClockIcon,
 		BUTTON_VARIANTS,
+		TIMES_PERSETS,
+		TIMES_PERSETS_LABELS,
+		TIMES_PRESETS_DESCRIPTIONS,
+		TIMES_PRESETS_BREAK_DURATION,
 	}),
 
 	props: {
@@ -26,10 +36,13 @@ export default {
 <template>
   <Card :icon="ClockIcon" title="Quick Presets" subtitle="Choose a preset timer configuration!">
     <div class="flex justify-start gap-4">
-      <Button :variant="BUTTON_VARIANTS.OUTLINE" @click="" subtitle="25 min work, 5 min break">Classic</Button>
-      <Button :variant="BUTTON_VARIANTS.OUTLINE" @click="" subtitle="50 min work, 10 min break">Extended</Button>
-      <Button :variant="BUTTON_VARIANTS.OUTLINE" @click="" subtitle="90 min work, 15 min break">Deep Work</Button>
-      <Button :variant="BUTTON_VARIANTS.OUTLINE" @click="" subtitle="15 min work, 3 min break">Quick Session</Button>
+			<Button
+				v-for="preset in TIMES_PERSETS"
+				:key="preset" :variant="BUTTON_VARIANTS.OUTLINE"
+				@click="" :subtitle="TIMES_PRESETS_DESCRIPTIONS[preset]"
+			>
+					{{ TIMES_PERSETS_LABELS[preset] }}
+			</Button>
     </div>
   </Card>
 </template>

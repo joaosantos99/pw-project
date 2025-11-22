@@ -28,9 +28,13 @@
       buttonIcon: {
         type: Function,
         required: false
-    }
+      },
+      onClick: {
+        type: Function,
+        required: false
+      }
+    },
   }
-}
 </script>
 
 <template>
@@ -40,7 +44,7 @@
       <h2>{{ paragraph }}</h2>
     </div>
     <div v-if="buttonLabel">
-      <Button :icon="buttonIcon" :variant="BUTTON_VARIANTS.PRIMARY" @click="">{{ buttonLabel }}</Button>
+      <Button :icon="buttonIcon" :variant="BUTTON_VARIANTS.PRIMARY" @click="onClick">{{ buttonLabel }}</Button>
     </div>
   </div>
 </template>

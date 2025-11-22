@@ -19,6 +19,14 @@
         type: String,
         required: true
       },
+      name: {
+        type: String,
+        required: true
+      },
+      error: {
+        type: String,
+        required: false
+      },
     },
   }
 </script>
@@ -29,9 +37,11 @@
     <input
       class="w-full text-sm p-2 border border-brand-primary"
       :id="id"
+      :name="name"
       :type="type"
       :value="value"
       :placeholder="placeholder"
     />
+    <p class="text-sm text-brand-secondary" v-if="error">{{ error }}</p>
   </div>
 </template>

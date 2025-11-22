@@ -2,6 +2,7 @@
   import Header from './components/Header.vue'
   import Sidebar from './components/Sidebar.vue'
   import { RouterView } from 'vue-router'
+  import { useAuth } from './composables/useAuth'
 
   export default {
     name: 'App',
@@ -9,6 +10,14 @@
       Header,
       Sidebar,
       RouterView,
+    },
+
+    setup() {
+      const { checkSession } = useAuth()
+
+      return {
+        checkSession,
+      }
     },
   }
 </script>

@@ -2,6 +2,7 @@
 import { PlayIcon } from "lucide-vue-next";
 import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
+import PieChart from "@/components/charts/PieChart.vue";
 
 export default {
 	name: "HomeView",
@@ -13,6 +14,7 @@ export default {
 	components: {
 		ContentHeader,
 		PageWrapper,
+		PieChart,
 	},
 };
 </script>
@@ -25,6 +27,10 @@ export default {
       buttonLabel="Start Study Session"
       :buttonIcon="PlayIcon"
     />
-    <div class="flex flex-col gap-6"></div>
+    <div class="flex flex-col gap-6">
+      <Card>
+        <PieChart />
+      </Card>
+    </div>
   </PageWrapper>
 </template>

@@ -1,9 +1,16 @@
 <script>
 import { FileTextIcon, SaveIcon } from "lucide-vue-next";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
+import Card from "@/components/primitives/Card.vue";
+import Button from "@/components/primitives/Button.vue";
 
 export default {
 	name: "SessionNotes",
+
+	components: {
+		Card,
+		Button,
+	},
 
 	data: () => ({
 		FileTextIcon,

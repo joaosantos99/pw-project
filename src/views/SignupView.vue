@@ -3,6 +3,9 @@ import { mapActions, mapState } from "pinia";
 
 import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
+import Card from "@/components/primitives/Card.vue";
+import Button from "@/components/primitives/Button.vue";
+import InputField from "@/components/primitives/InputField.vue";
 import { useAuth } from "@/composables/useAuth";
 import { LAYOUTS } from "@/constants/layout";
 import { useAuthStore } from "@/stores/auth";
@@ -14,6 +17,9 @@ export default {
 	components: {
 		ContentHeader,
 		PageWrapper,
+		Card,
+		Button,
+		InputField,
 	},
 
 	computed: {

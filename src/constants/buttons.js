@@ -2,6 +2,7 @@ export const BUTTON_VARIANTS = {
 	PRIMARY: "primary",
 	OUTLINE: "outline",
 	PRESETS: "presets",
+	DANGER: "danger",
 };
 
 export const BUTTON_VARIANT_CLASSES = {
@@ -9,4 +10,5 @@ export const BUTTON_VARIANT_CLASSES = {
 	[BUTTON_VARIANTS.OUTLINE]: "border border-brand-primary text-brand-primary",
 	[BUTTON_VARIANTS.PRESETS]:
 		"border border-brand-primary text-brand-primary bg-brand-secondary-50",
+	[BUTTON_VARIANTS.DANGER]: "bg-red-500 text-white",
 };

@@ -1,6 +1,7 @@
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { apiLoginUrl, apiSessionsUrl, apiSignupUrl } from "@/constants/urls";
+import { API_URL } from "@/constants/env";
+import { get, post } from "@/utils/api";
 import { useAuthStore } from "@/stores/auth";
 
 export function useAuth() {
@@ -16,21 +17,12 @@ export function useAuth() {
 	};
 
 	const login = async (email, password) => {
-		const userResponse = await fetch(
-			`${apiLoginUrl}?email=${email}&password=${password}`,
-			{
-				method: "GET",
-			},
-		);
-
-		const [user] = await userResponse.json();
+		const users = await get(API_URL, `users?email=${email}&password=${password}`);
+		const [user] = users;
 
 		const sessionSecret = `${user.id}-${Date.now().toString(36)}`;
 
-		await fetch(apiSessionsUrl, {
-			method: "POST",
-			body: JSON.stringify({ user_id: user.id, secret: sessionSecret }),
-		});
+		await post(API_URL, "sessions", { user_id: user.id, secret: sessionSecret });
 
 		await authStore.login(user, { user_id: user.id, secret: sessionSecret });
 	};
@@ -40,19 +32,11 @@ export function useAuth() {
 	};
 
 	const signup = async (name, email, password) => {
-		const userResponse = await fetch(apiSignupUrl, {
-			method: "POST",
-			body: JSON.stringify({ name, email, password }),
-		});
-
-		const user = await userResponse.json();
+		const user = await post(API_URL, "users", { name, email, password });
 
 		const sessionSecret = `${user.id}-${Date.now().toString(36)}`;
 
-		await fetch(apiSessionsUrl, {
-			method: "POST",
-			body: JSON.stringify({ user_id: user.id, secret: sessionSecret }),
-		});
+		await post(API_URL, "sessions", { user_id: user.id, secret: sessionSecret });
 
 		await authStore.login(user, { user_id: user.id, secret: sessionSecret });
 	};

@@ -3,6 +3,7 @@ import { useRouter } from "vue-router";
 import { API_URL } from "@/constants/env";
 import { get, post } from "@/utils/api";
 import { useAuthStore } from "@/stores/auth";
+import { generateSessionSecret } from "@/utils/id";
 
 export function useAuth() {
 	const authStore = useAuthStore();
@@ -20,7 +21,7 @@ export function useAuth() {
 		const users = await get(API_URL, `users?email=${email}&password=${password}`);
 		const [user] = users;
 
-		const sessionSecret = `${user.id}-${Date.now().toString(36)}`;
+		const sessionSecret = generateSessionSecret(user.id);
 
 		await post(API_URL, "sessions", { user_id: user.id, secret: sessionSecret });
 
@@ -34,7 +35,7 @@ export function useAuth() {
 	const signup = async (name, email, password) => {
 		const user = await post(API_URL, "users", { name, email, password });
 
-		const sessionSecret = `${user.id}-${Date.now().toString(36)}`;
+		const sessionSecret = generateSessionSecret(user.id);
 
 		await post(API_URL, "sessions", { user_id: user.id, secret: sessionSecret });
 

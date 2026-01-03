@@ -7,9 +7,11 @@
 		"dev": "vite",
 		"build": "vite build",
 		"check-lint": "biome check",
-		"prepare": "husky"
+		"prepare": "husky",
+		"server": "json-server --watch db.json --port 3001"
 	},
 	"dependencies": {
+		"@unovis/vue": "^1.6.2",
 		"json-server": "^1.0.0-beta.3",
 		"lucide-vue-next": "^0.553.0",
 		"pinia": "^3.0.3",

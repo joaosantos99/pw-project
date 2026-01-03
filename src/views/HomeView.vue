@@ -2,6 +2,7 @@
 import { PlayIcon } from "lucide-vue-next";
 import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
+import Card from "@/components/primitives/Card.vue";
 import PieChart from "@/components/charts/PieChart.vue";
 
 export default {
@@ -14,6 +15,7 @@ export default {
 	components: {
 		ContentHeader,
 		PageWrapper,
+		Card,
 		PieChart,
 	},
 };

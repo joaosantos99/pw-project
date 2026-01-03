@@ -1,8 +1,13 @@
 <script>
 import { BUTTON_VARIANTS } from "@/constants/buttons";
+import Button from "@/components/primitives/Button.vue";
 
 export default {
 	name: "ContentHeader",
+
+	components: {
+		Button,
+	},
 
 	data: () => ({
 		BUTTON_VARIANTS,

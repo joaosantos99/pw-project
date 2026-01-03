@@ -17,8 +17,15 @@ export default {
 		MenuItem,
 	},
 
+
 	data() {
 		return {
+			LayoutDashboardIcon,
+			TimerIcon,
+			TargetIcon,
+			BookMarkedIcon,
+			BookOpenIcon,
+			UserIcon,
 			menuItems: [
 				{
 					icon: LayoutDashboardIcon,
@@ -62,17 +69,6 @@ export default {
 
 			return this.$route.fullPath.includes(path);
 		},
-	},
-
-	setup() {
-		return {
-			LayoutDashboardIcon,
-			TimerIcon,
-			TargetIcon,
-			BookMarkedIcon,
-			BookOpenIcon,
-			UserIcon,
-		};
 	},
 };
 </script>

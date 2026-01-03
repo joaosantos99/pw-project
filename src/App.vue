@@ -12,12 +12,9 @@ export default {
 		RouterView,
 	},
 
-	setup() {
+	mounted() {
 		const { checkSession } = useAuth();
-
-		return {
-			checkSession,
-		};
+		checkSession();
 	},
 };
 </script>

@@ -7,6 +7,7 @@ import BarChart from "@/components/charts/BarChart.vue";
 import TodayProgress from "@/components/TodayProgress.vue";
 import LevelAchievements from "@/components/LevelAchievements.vue";
 import QuickStats from "@/components/QuickStats.vue";
+import Quotes from "@/components/Quotes.vue";
 
 export default {
 	name: "HomeView",
@@ -23,6 +24,7 @@ export default {
 		TodayProgress,
 		LevelAchievements,
 		QuickStats,
+		Quotes,
 	},
 };
 </script>
@@ -47,6 +49,9 @@ export default {
       </Card>
       <Card class="md:col-span-2">
         <QuickStats />
+      </Card>
+      <Card class="md:col-span-4">
+        <Quotes />
       </Card>
     </div>
   </PageWrapper>

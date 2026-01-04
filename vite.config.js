@@ -11,4 +11,13 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
+	server: {
+		proxy: {
+			"/api/zenquotes": {
+				target: "https://zenquotes.io",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api\/zenquotes/, "/api"),
+			},
+		},
+	},
 });

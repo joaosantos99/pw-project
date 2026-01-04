@@ -45,6 +45,9 @@ export default {
       <Card class="md:col-span-2">
         <LevelAchievements />
       </Card>
+      <Card class="md:col-span-2">
+        <QuickStats />
+      </Card>
     </div>
   </PageWrapper>
 </template>

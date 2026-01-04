@@ -5,6 +5,7 @@ import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
 import { useSubjects } from "@/composables/useSubjects";
 import { useAuthStore } from "@/stores/auth";
+import { useTimerStore } from "@/stores/timerStore";
 
 export default {
 	name: "Subjects",
@@ -19,6 +20,7 @@ export default {
 		BUTTON_VARIANTS,
 		subjects: [],
 		isLoading: false,
+		timerStore: null,
 	}),
 
 	computed: {
@@ -26,6 +28,14 @@ export default {
 			const authStore = useAuthStore();
 			return authStore.auth?.user?.id;
 		},
+
+		selectedSubject() {
+			return this.timerStore?.subject;
+		},
+	},
+
+	created() {
+		this.timerStore = useTimerStore();
 	},
 
 	async mounted() {
@@ -47,6 +57,14 @@ export default {
 			} finally {
 				this.isLoading = false;
 			}
+		},
+
+		handleSubjectClick(subject) {
+			this.timerStore.setSubject(subject);
+		},
+
+		isSubjectSelected(subject) {
+			return this.selectedSubject?.id === subject.id;
 		},
 	},
 
@@ -73,8 +91,8 @@ export default {
       <Button
         v-for="subject in subjects"
         :key="subject.id"
-        :variant="BUTTON_VARIANTS.OUTLINE"
-        @click=""
+        :variant="isSubjectSelected(subject) ? BUTTON_VARIANTS.PRIMARY : BUTTON_VARIANTS.OUTLINE"
+        :onClick="() => handleSubjectClick(subject)"
       >
         {{ subject.name }}
       </Button>

@@ -1,5 +1,5 @@
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { VisXYContainer, VisGroupedBar, VisAxis } from "@unovis/vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
@@ -140,7 +140,16 @@ export default {
 
 		const xAccessor = (d) => d.dayIndex;
 		const yAccessor = (d) => d.hours;
-		const yDomain = [0, 4];
+
+		// Calculate yDomain: minimum 4h, but higher if any day has more
+		const yDomain = computed(() => {
+			if (!chartData.value || chartData.value.length === 0) {
+				return [0, 4];
+			}
+			const maxHours = Math.max(...chartData.value.map((d) => d.hours || 0));
+			const maxY = Math.max(4, Math.ceil(maxHours));
+			return [0, maxY];
+		});
 
 		// Explicit day labels for x-axis - must match the order in data
 		const dayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -158,13 +167,16 @@ export default {
 
 <template>
 	<div class="bar-chart-container">
-		<div class="mb-4">
-			<h3 class="text-lg font-semibold">Weekly Study Hours</h3>
-			<p class="text-sm text-gray-600">This week</p>
+		<div class="mb-4 flex items-center gap-2">
+			<h3 class="text-lg font-semibold text-brand-primary">Weekly Study Hours</h3>
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3e43f0" stroke-width="2">
+				<path d="M7 17L17 7M7 7h10v10" />
+			</svg>
 		</div>
+		<p class="text-sm text-brand-primary mb-4">Last 7 days</p>
 		<VisXYContainer
 			:data="chartData"
-			:height="300"
+			:height="250"
 			:margin="{ top: 20, right: 20, bottom: 40, left: 50 }"
 			:xDomain="[0, 6]"
 			:yDomain="yDomain"
@@ -172,7 +184,7 @@ export default {
 			<VisGroupedBar
 				:x="xAccessor"
 				:y="[yAccessor]"
-				:color="['#3b82f6']"
+				:color="['#3e43f0']"
 				:roundedCorners="0"
 			/>
 			<VisAxis

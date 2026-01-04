@@ -5,11 +5,18 @@ import {
 	TIMES_PERSETS,
 	TIMES_PERSETS_LABELS,
 	TIMES_PRESETS_DESCRIPTIONS,
-	TIMES_PRESETS_BREAK_DURATION,
 } from "@/constants/times";
+import { useTimerStore } from "@/stores/timerStore";
+import Card from "@/components/primitives/Card.vue";
+import Button from "@/components/primitives/Button.vue";
 
 export default {
-	name: "Subjects",
+	name: "QuickPresets",
+
+	components: {
+		Card,
+		Button,
+	},
 
 	data: () => ({
 		ClockIcon,
@@ -17,17 +24,12 @@ export default {
 		TIMES_PERSETS,
 		TIMES_PERSETS_LABELS,
 		TIMES_PRESETS_DESCRIPTIONS,
-		TIMES_PRESETS_BREAK_DURATION,
 	}),
 
-	props: {
-		title: {
-			type: String,
-			required: true,
-		},
-		subtitle: {
-			type: String,
-			required: false,
+	methods: {
+		handlePresetClick(preset) {
+			const timerStore = useTimerStore();
+			timerStore.setPreset(preset);
 		},
 	},
 };
@@ -37,9 +39,11 @@ export default {
   <Card :icon="ClockIcon" title="Quick Presets" subtitle="Choose a preset timer configuration!">
     <div class="flex justify-start gap-4">
 			<Button
-				v-for="preset in TIMES_PERSETS"
-				:key="preset" :variant="BUTTON_VARIANTS.OUTLINE"
-				@click="" :subtitle="TIMES_PRESETS_DESCRIPTIONS[preset]"
+				v-for="preset in Object.values(TIMES_PERSETS)"
+				:key="preset"
+				:variant="BUTTON_VARIANTS.OUTLINE"
+				:onClick="() => handlePresetClick(preset)"
+				:subtitle="TIMES_PRESETS_DESCRIPTIONS[preset]"
 			>
 					{{ TIMES_PERSETS_LABELS[preset] }}
 			</Button>

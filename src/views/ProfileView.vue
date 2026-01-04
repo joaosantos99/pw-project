@@ -1,5 +1,5 @@
 <script>
-import { LogOutIcon } from "lucide-vue-next";
+import { LogOutIcon, Trash2Icon, AlertTriangleIcon } from "lucide-vue-next";
 import { mapActions, mapState } from "pinia";
 
 import ContentHeader from "@/components/ContentHeader.vue";
@@ -7,8 +7,9 @@ import PageWrapper from "@/components/PageWrapper.vue";
 import InputField from "@/components/primitives/InputField.vue";
 import Button from "@/components/primitives/Button.vue";
 import Card from "@/components/primitives/Card.vue";
+import Modal from "@/components/primitives/Modal.vue";
 import { useAuthStore } from "@/stores/auth";
-import { get, put } from "@/utils/api";
+import { get, put, del } from "@/utils/api";
 import { API_URL } from "@/constants/env";
 import { setLocalStorage } from "@/utils/localStorage";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
@@ -22,11 +23,14 @@ export default {
 		InputField,
 		Button,
 		Card,
+		Modal,
 	},
 
 	data: () => ({
 		BUTTON_VARIANTS,
 		LogOutIcon,
+		Trash2Icon,
+		AlertTriangleIcon,
 		name: "",
 		email: "",
 		profileError: "",
@@ -34,6 +38,8 @@ export default {
 		newPassword: "",
 		confirmPassword: "",
 		passwordError: "",
+		isDeleteModalOpen: false,
+		isDeleting: false,
 	}),
 
 	computed: {
@@ -141,6 +147,32 @@ export default {
 				this.passwordError = error.message || "Failed to change password";
 			}
 		},
+		handleDeleteAccount() {
+			this.isDeleteModalOpen = true;
+		},
+		handleCloseDeleteModal() {
+			if (this.isDeleting) {
+				return;
+			}
+			this.isDeleteModalOpen = false;
+		},
+		async handleConfirmDelete() {
+			if (this.isDeleting) {
+				return;
+			}
+
+			this.isDeleting = true;
+
+			try {
+				await del(API_URL, `users/${this.userId}`);
+				await this.logout();
+				this.$router.push("/login");
+			} catch (error) {
+				console.error("Error deleting account:", error);
+				alert("Failed to delete account. Please try again.");
+				this.isDeleting = false;
+			}
+		},
 	},
 };
 </script>
@@ -236,6 +268,62 @@ export default {
 					</div>
         </div>
       </Card>
+      <div class="bg-brand-white border border-red-300 p-6">
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold text-red-500">Danger Zone</h3>
+          <p class="text-sm font-light text-red-500">Irreversible actions that affect your account</p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <div class="border border-red-500 p-4">
+            <div class="flex items-start gap-2">
+              <AlertTriangleIcon :size="20" class="text-red-500 shrink-0 mt-0.5" />
+              <div class="flex flex-col gap-1">
+                <span class="text-red-500 font-semibold">Warning</span>
+                <p class="text-red-500 text-sm">
+                  Deleting your account will permanently remove all your data, including study sessions, goals, and progress. This action cannot be undone.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <Button
+              :variant="BUTTON_VARIANTS.DANGER"
+              :icon="Trash2Icon"
+              :onClick="handleDeleteAccount"
+            >
+              Delete Account
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
+    <Modal
+      v-if="isDeleteModalOpen"
+      title="Delete Account"
+      description="Are you sure you want to delete your account? This action cannot be undone."
+      @close="handleCloseDeleteModal"
+    >
+      <div class="flex flex-col gap-4">
+        <p class="text-sm text-red-500">
+          Deleting your account will permanently remove all your data, including study sessions, goals, and progress.
+        </p>
+        <div class="flex justify-end gap-4 mt-2">
+          <Button
+            :variant="BUTTON_VARIANTS.OUTLINE"
+            :onClick="handleCloseDeleteModal"
+            :disabled="isDeleting"
+          >
+            Cancel
+          </Button>
+          <Button
+            :variant="BUTTON_VARIANTS.DANGER"
+            :onClick="handleConfirmDelete"
+            :disabled="isDeleting"
+          >
+            {{ isDeleting ? "Deleting..." : "Delete Account" }}
+          </Button>
+        </div>
+      </div>
+    </Modal>
   </PageWrapper>
 </template>

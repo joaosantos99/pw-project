@@ -31,6 +31,10 @@ export default {
 			type: String,
 			required: false,
 		},
+		customClass: {
+			type: [String, Object, Array],
+			default: "",
+		},
 	},
 };
 </script>
@@ -39,7 +43,8 @@ export default {
   <button
     :class="[
       'flex justify-center px-6 py-4 gap-2 cursor-pointer items-center',
-      BUTTON_VARIANT_CLASSES[variant]
+      BUTTON_VARIANT_CLASSES[variant],
+      customClass
     ]"
     @click="onClick"
   >

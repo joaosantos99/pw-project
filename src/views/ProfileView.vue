@@ -10,6 +10,8 @@ import Card from "@/components/primitives/Card.vue";
 import { useAuthStore } from "@/stores/auth";
 import { get, put } from "@/utils/api";
 import { API_URL } from "@/constants/env";
+import { setLocalStorage } from "@/utils/localStorage";
+import { BUTTON_VARIANTS } from "@/constants/buttons";
 
 export default {
 	name: "ProfileView",
@@ -23,7 +25,11 @@ export default {
 	},
 
 	data: () => ({
+		BUTTON_VARIANTS,
 		LogOutIcon,
+		name: "",
+		email: "",
+		profileError: "",
 		currentPassword: "",
 		newPassword: "",
 		confirmPassword: "",
@@ -37,11 +43,58 @@ export default {
 		},
 	},
 
+	mounted() {
+		if (this.auth?.user) {
+			this.name = this.auth.user.name || "";
+			this.email = this.auth.user.email || "";
+		}
+	},
+
 	methods: {
 		...mapActions(useAuthStore, ["logout"]),
 		async handleLogout() {
 			await this.logout();
 			this.$router.push("/login");
+		},
+		async handleSaveProfile() {
+			this.profileError = "";
+
+			if (!this.name || !this.email) {
+				this.profileError = "Name and email are required";
+				return;
+			}
+
+			try {
+				const users = await get(API_URL, `users?id=${this.userId}`);
+				const [user] = users;
+
+				if (!user) {
+					this.profileError = "User not found";
+					return;
+				}
+
+				const updatedUser = {
+					...user,
+					name: this.name,
+					email: this.email,
+				};
+
+				await put(API_URL, `users/${this.userId}`, updatedUser);
+
+				this.auth.user = updatedUser;
+				setLocalStorage("auth", this.auth);
+
+				this.profileError = "";
+			} catch (error) {
+				this.profileError = error.message || "Failed to update profile";
+			}
+		},
+		handleCancelProfile() {
+			if (this.auth?.user) {
+				this.name = this.auth.user.name || "";
+				this.email = this.auth.user.email || "";
+			}
+			this.profileError = "";
 		},
 		async handleChangePassword() {
 			this.passwordError = "";
@@ -103,6 +156,45 @@ export default {
     />
     <div class="flex flex-col gap-6">
       <Card
+        title="Profile Information"
+        subtitle="Update your personal information"
+      >
+        <div class="flex flex-col gap-4">
+          <InputField
+            id="name"
+            label="Full Name"
+            placeholder="Enter your full name"
+            type="text"
+            name="name"
+            v-model="name"
+            :error="profileError"
+          />
+
+          <InputField
+            id="email"
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
+            name="email"
+            v-model="email"
+          />
+          <div class="flex justify-end gap-2">
+            <Button
+              :variant="BUTTON_VARIANTS.OUTLINE"
+              :onClick="handleCancelProfile"
+            >
+              Cancel
+            </Button>
+            <Button
+              :variant="BUTTON_VARIANTS.PRIMARY"
+              :onClick="handleSaveProfile"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      </Card>
+      <Card
         title="Security"
         subtitle="Manage your password and security settings"
       >
@@ -136,7 +228,7 @@ export default {
           />
 					<div class="flex justify-end">
 						<Button
-							variant="primary"
+							:variant="BUTTON_VARIANTS.PRIMARY"
 							:onClick="handleChangePassword"
 						>
 							Change Password

@@ -42,6 +42,9 @@ export default {
       <Card class="md:col-span-3">
         <BarChart />
       </Card>
+      <Card class="md:col-span-2">
+        <LevelAchievements />
+      </Card>
     </div>
   </PageWrapper>
 </template>

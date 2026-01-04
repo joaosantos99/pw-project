@@ -73,6 +73,7 @@ export default {
           unit: this.formData.unit,
           value: Number(this.formData.value),
         });
+        this.$emit("created");
         this.close();
       } catch (error) {
         console.error("Error creating goal:", error);

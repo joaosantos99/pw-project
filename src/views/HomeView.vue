@@ -3,8 +3,10 @@ import { PlayIcon } from "lucide-vue-next";
 import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
 import Card from "@/components/primitives/Card.vue";
-import PieChart from "@/components/charts/PieChart.vue";
 import BarChart from "@/components/charts/BarChart.vue";
+import TodayProgress from "@/components/TodayProgress.vue";
+import LevelAchievements from "@/components/LevelAchievements.vue";
+import QuickStats from "@/components/QuickStats.vue";
 
 export default {
 	name: "HomeView",
@@ -17,8 +19,10 @@ export default {
 		ContentHeader,
 		PageWrapper,
 		Card,
-		PieChart,
 		BarChart,
+		TodayProgress,
+		LevelAchievements,
+		QuickStats,
 	},
 };
 </script>
@@ -31,12 +35,12 @@ export default {
       buttonLabel="Start Study Session"
       :buttonIcon="PlayIcon"
     />
-    <div class="flex flex-col gap-6">
-      <Card>
-        <BarChart />
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <Card class="md:col-span-1">
+        <TodayProgress />
       </Card>
-      <Card>
-        <PieChart />
+      <Card class="md:col-span-3">
+        <BarChart />
       </Card>
     </div>
   </PageWrapper>

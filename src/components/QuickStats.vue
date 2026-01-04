@@ -94,15 +94,15 @@ export default {
 			<p class="text-sm text-brand-primary">Your achievements</p>
 		</div>
 		<div class="flex flex-col gap-3">
-			<div class="flex flex-col">
+			<div class="flex justify-between">
 				<span class="text-sm text-brand-primary">Total Sessions</span>
 				<span class="text-2xl font-bold text-brand-primary">{{ totalSessions }}</span>
 			</div>
-			<div class="flex flex-col">
+			<div class="flex justify-between">
 				<span class="text-sm text-brand-primary">Total Hours</span>
 				<span class="text-2xl font-bold text-brand-primary">{{ totalHours.toFixed(1) }}h</span>
 			</div>
-			<div class="flex flex-col">
+			<div class="flex justify-between">
 				<span class="text-sm text-brand-primary">Avg. Session</span>
 				<span class="text-2xl font-bold text-brand-primary">{{ avgSessionMinutes }}min</span>
 			</div>

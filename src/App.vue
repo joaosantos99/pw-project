@@ -12,6 +12,13 @@ export default {
 		RouterView,
 	},
 
+	computed: {
+		shouldShowLayout() {
+			const authRoutes = ["/login", "/signup"];
+			return !authRoutes.includes(this.$route.path);
+		},
+	},
+
 	mounted() {
 		const { checkSession } = useAuth();
 		checkSession();
@@ -20,5 +27,14 @@ export default {
 </script>
 
 <template>
-  <RouterView />
+  <div v-if="shouldShowLayout" class="w-full flex">
+    <Sidebar />
+    <div class="w-full">
+      <Header />
+      <div class="w-full flex flex-col gap-4 p-6">
+        <RouterView />
+      </div>
+    </div>
+  </div>
+  <RouterView v-else />
 </template>

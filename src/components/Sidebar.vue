@@ -17,7 +17,6 @@ export default {
 		MenuItem,
 	},
 
-
 	data() {
 		return {
 			LayoutDashboardIcon,
@@ -61,6 +60,15 @@ export default {
 		};
 	},
 
+	computed: {
+		menuItemsWithActiveState() {
+			return this.menuItems.map((item) => ({
+				...item,
+				isActive: this.isActivePath(item.to),
+			}));
+		},
+	},
+
 	methods: {
 		isActivePath(path) {
 			if (path === "/") {
@@ -82,12 +90,12 @@ export default {
         </section>
         <section class="flex flex-col gap-2">
           <MenuItem
-            v-for="item in menuItems"
+            v-for="item in menuItemsWithActiveState"
             :key="item.label"
             :icon="item.icon"
             :label="item.label"
             :to="item.to"
-            :is-active="isActivePath(item.to)"
+            :is-active="item.isActive"
           />
         </section>
       </div>

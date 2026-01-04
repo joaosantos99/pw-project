@@ -4,6 +4,7 @@ import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
 import Card from "@/components/primitives/Card.vue";
 import PieChart from "@/components/charts/PieChart.vue";
+import BarChart from "@/components/charts/BarChart.vue";
 
 export default {
 	name: "HomeView",
@@ -17,6 +18,7 @@ export default {
 		PageWrapper,
 		Card,
 		PieChart,
+		BarChart,
 	},
 };
 </script>
@@ -30,6 +32,9 @@ export default {
       :buttonIcon="PlayIcon"
     />
     <div class="flex flex-col gap-6">
+      <Card>
+        <BarChart />
+      </Card>
       <Card>
         <PieChart />
       </Card>

@@ -200,10 +200,7 @@ export default {
               class="w-full text-sm p-2 border border-brand-primary"
             />
             <Button :icon="Filter" variant="outline" class="flex">
-              <Filter size="18" />
-              <div>
-                Filter
-              </div>
+              Filter
             </Button>
           </form>
           <div v-if="isLoading" class="text-center py-8">Loading sessions...</div>

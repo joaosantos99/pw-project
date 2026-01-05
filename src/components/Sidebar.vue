@@ -6,9 +6,11 @@ import {
 	TargetIcon,
 	TimerIcon,
 	UserIcon,
+	UsersIcon,
 } from "lucide-vue-next";
 
 import MenuItem from "@/components/MenuItem.vue";
+import { useAuthStore } from "@/stores/auth";
 
 export default {
 	name: "Sidebar",
@@ -25,6 +27,7 @@ export default {
 			BookMarkedIcon,
 			BookOpenIcon,
 			UserIcon,
+			UsersIcon,
 			menuItems: [
 				{
 					icon: LayoutDashboardIcon,
@@ -61,11 +64,26 @@ export default {
 	},
 
 	computed: {
+		isAdmin() {
+			const authStore = useAuthStore();
+			return authStore.auth?.user?.isAdmin === true;
+		},
 		menuItemsWithActiveState() {
-			return this.menuItems.map((item) => ({
+			const items = this.menuItems.map((item) => ({
 				...item,
 				isActive: this.isActivePath(item.to),
 			}));
+
+			if (this.isAdmin) {
+				items.splice(items.length - 1, 0, {
+					icon: UsersIcon,
+					label: "Users",
+					to: "/users",
+					isActive: this.isActivePath("/users"),
+				});
+			}
+
+			return items;
 		},
 	},
 

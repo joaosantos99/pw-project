@@ -31,7 +31,7 @@ export default {
     <Sidebar />
     <div class="w-full">
       <Header />
-      <div class="w-full flex flex-col gap-4 p-6">
+      <div class="w-full flex flex-col gap-4 p-6 pt-[104px]">
         <RouterView />
       </div>
     </div>

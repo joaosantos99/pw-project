@@ -105,10 +105,7 @@ export default {
 					placeholder="Search users..."
 					class="w-full text-sm p-2 border border-brand-primary"
 				/>
-				<Button :icon="Filter" variant="outline" class="flex">
-					<Filter size="18" />
-					<div>Filter</div>
-				</Button>
+				<Button :icon="Filter" variant="outline" class="flex">Filter</Button>
 			</form>
 			<div v-if="isLoading" class="text-center py-8">Loading users...</div>
 			<table v-else class="table-auto w-full">

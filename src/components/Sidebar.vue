@@ -101,7 +101,7 @@ export default {
 
 <template>
   <aside class="max-w-[280px] w-full h-screen">
-    <div class="h-full position-fixed border-r border-brand-primary flex flex-col justify-between p-6">
+    <div class="h-full fixed border-r border-brand-primary flex flex-col justify-between p-6">
       <div class="flex flex-col gap-6">
         <section>
           <img src="../assets/logo.svg" alt="logo" class="w-full h-full object-contain" />

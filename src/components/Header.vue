@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <header class="flex items-center justify-between px-8 py-4 border-b border-solid">
+  <header class="w-full z-1 bg-brand-white flex fixed items-center justify-between px-8 py-4 border-b border-solid">
 
     <div class="flex space-x-8">
       <!-- Streak -->

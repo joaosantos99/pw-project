@@ -7,6 +7,8 @@ import SessionsView from "@/views/SessionsView.vue";
 import SignupView from "@/views/SignupView.vue";
 import SubjectsView from "@/views/SubjectsView.vue";
 import TimerView from "@/views/TimerView.vue";
+import UsersView from "@/views/UsersView.vue";
+import { useAuthStore } from "@/stores/auth";
 
 const routes = [
 	{ path: "/", component: HomeView },
@@ -17,6 +19,19 @@ const routes = [
 	{ path: "/subjects", component: SubjectsView },
 	{ path: "/sessions", component: SessionsView },
 	{ path: "/profile", component: ProfileView },
+	{
+		path: "/users",
+		component: UsersView,
+		beforeEnter: (to, from, next) => {
+			const authStore = useAuthStore();
+			const isAdmin = authStore.auth?.user?.isAdmin === true;
+			if (isAdmin) {
+				next();
+			} else {
+				next("/");
+			}
+		},
+	},
 ];
 
 const router = createRouter({

@@ -66,7 +66,7 @@ export default {
 				"{{ quote }}"
 			</blockquote>
 			<footer class="text-sm text-brand-primary font-medium">
-				– {{ author }}
+				- {{ author }}
 			</footer>
 		</div>
 	</div>

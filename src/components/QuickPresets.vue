@@ -55,7 +55,7 @@ export default {
 
 <template>
   <Card :icon="ClockIcon" title="Quick Presets" subtitle="Choose a preset timer configuration!">
-    <div class="flex justify-start gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
 			<Button
 				v-for="preset in Object.values(TIMES_PERSETS)"
 				:key="preset"

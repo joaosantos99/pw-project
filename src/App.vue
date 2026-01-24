@@ -2,6 +2,7 @@
 import { RouterView } from "vue-router";
 import Header from "@/components/Header.vue";
 import Sidebar from "@/components/Sidebar.vue";
+import Chatbot from "@/components/Chatbot.vue";
 import { useAuth } from "@/composables/useAuth";
 
 export default {
@@ -9,6 +10,7 @@ export default {
 	components: {
 		Header,
 		Sidebar,
+		Chatbot,
 		RouterView,
 	},
 
@@ -35,6 +37,7 @@ export default {
         <RouterView />
       </div>
     </div>
+    <Chatbot />
   </div>
   <RouterView v-else />
 </template>

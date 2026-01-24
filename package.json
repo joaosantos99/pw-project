@@ -12,6 +12,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
+		"@google/genai": "^1.38.0",
 		"@unovis/vue": "^1.6.2",
 		"@vue/test-utils": "^2.4.6",
 		"json-server": "^1.0.0-beta.3",

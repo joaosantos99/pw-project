@@ -28,7 +28,7 @@
   <div class="inline-block bg-brand-gray p-1">
     <div class="flex gap-1">
       <button
-        class="text-brand-primary w-36 py-2 cursor-pointer"
+        class="text-brand-primary py-2 cursor-pointer w-full"
         v-for="tab in tabs"
         :key="tab.value"
         :class="{ 'bg-brand-white': activeTab === tab.value }"

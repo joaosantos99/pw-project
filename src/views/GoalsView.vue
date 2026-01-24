@@ -184,7 +184,7 @@ export default {
       :onClick="handleAddGoalClick"
     />
     <div class="flex flex-col gap-6">
-      <div class="grid grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <div class="flex items-center justify-between mb-6">
             <span>Daily Progress</span>

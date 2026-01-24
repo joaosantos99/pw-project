@@ -7,6 +7,7 @@ import {
 	TimerIcon,
 	UserIcon,
 	UsersIcon,
+	X
 } from "lucide-vue-next";
 
 import MenuItem from "@/components/MenuItem.vue";
@@ -17,6 +18,7 @@ export default {
 
 	components: {
 		MenuItem,
+		X
 	},
 
 	data() {
@@ -63,6 +65,13 @@ export default {
 		};
 	},
 
+	props: {
+		isOpen:  {
+			type: Boolean,
+			default: false
+		}
+	},
+
 	computed: {
 		isAdmin() {
 			const authStore = useAuthStore();
@@ -100,26 +109,27 @@ export default {
 </script>
 
 <template>
-  <aside class="max-w-[280px] w-full h-screen">
-    <div class="h-full fixed border-r border-brand-primary flex flex-col justify-between p-6">
-      <div class="flex flex-col gap-6">
-        <section>
-          <img src="../assets/logo.svg" alt="logo" class="w-full h-full object-contain" />
-        </section>
-        <section class="flex flex-col gap-2">
-          <MenuItem
-            v-for="item in menuItemsWithActiveState"
-            :key="item.label"
-            :icon="item.icon"
-            :label="item.label"
-            :to="item.to"
-            :is-active="item.isActive"
-          />
-        </section>
-      </div>
-      <section class="border-t border-brand-primary">
-        <p class="text-xs text-center pt-4">Track your learning journey!</p>
-      </section>
+  <aside :class="['lg:max-w-[280px] lg:block lg:w-full h-screen', isOpen ? 'w-full fixed inset-0 z-50' : 'hidden']">
+	<div class="h-full w-full lg:max-w-[280px] lg:border-r bg-brand-white border-brand-primary flex flex-col justify-between p-6">
+		<div class="flex flex-col gap-6">
+			<section class="flex items-center justify-between">
+				<img src="../assets/logo.svg" alt="logo" class="w-60 h-full object-contain" />
+				<X v-if="isOpen" @click="$emit('close')" class="lg:hidden cursor-pointer text-brand-primary" />
+        	</section>
+			<section class="flex flex-col gap-2">
+			<MenuItem
+				v-for="item in menuItemsWithActiveState"
+				:key="item.label"
+				:icon="item.icon"
+				:label="item.label"
+				:to="item.to"
+				:is-active="item.isActive"
+			/>
+			</section>
+		</div>
+		<section class="border-t border-brand-primary">
+			<p class="text-xs text-center pt-4">Track your learning journey!</p>
+		</section>
     </div>
   </aside>
 </template>

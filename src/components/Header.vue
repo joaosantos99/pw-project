@@ -1,5 +1,5 @@
 <script>
-import { Flame, Sun, Target } from "lucide-vue-next";
+import { Flame, Sun, Target, Menu } from "lucide-vue-next";
 
 export default {
 	name: "Header",
@@ -8,14 +8,27 @@ export default {
 		Flame,
 		Target,
 		Sun,
+    Menu
 	},
+
+  methods: {
+    showMenu() {
+      this.$emit("show-menu");
+    }
+  }
 };
 </script>
 
 <template>
-  <header class="w-full z-1 bg-brand-white flex fixed items-center justify-between px-8 py-4 border-b border-solid">
+  <header class="z-1 bg-brand-white fixed top-0 right-0 w-full lg:w-[calc(100%-280px)] flex items-center justify-between px-8 py-4 border-b border-solid">
 
-    <div class="flex space-x-8">
+    <div class="flex space-x-8 items-center">
+      <div
+        @click="showMenu"
+        class="lg:hidden cursor-pointer"
+      >
+        <Menu/>
+      </div>
       <!-- Streak -->
       <div class="flex space-x-4 items-center">
         <Flame

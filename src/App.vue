@@ -43,7 +43,7 @@ export default {
 <template>
   <div v-if="shouldShowLayout" class="w-full flex">
     <Sidebar :is-open="isMenuOpen" @close="isMenuOpen = false"/>
-    <div class="w-full">
+    <div class="w-full lg:ml-[280px]">
       <Header :is-menu-open="isMenuOpen" @show-menu="isMenuOpen = true"/>
       <main id="main-content" class="w-full flex flex-col gap-4 p-6 pt-[104px]">
         <RouterView />

@@ -140,7 +140,7 @@ export default {
 </script>
 
 <template>
-  <header class="z-1 bg-brand-white fixed top-0 right-0 w-full lg:w-[calc(100%-280px)] flex items-center justify-between px-8 py-4 border-b border-solid">
+  <header class="z-1 bg-brand-white fixed top-0 right-0 w-full lg:right-0 lg:left-[280px] lg:w-auto flex items-center justify-between px-8 py-4 border-b border-solid">
 
     <div class="flex space-x-8 items-center">
       <button

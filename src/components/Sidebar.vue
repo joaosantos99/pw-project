@@ -109,7 +109,7 @@ export default {
 </script>
 
 <template>
-  <aside :class="['lg:max-w-[280px] lg:block lg:w-full h-screen', isOpen ? 'w-full fixed inset-0 z-50' : 'hidden']">
+  <aside :class="['lg:max-w-[280px] lg:block lg:w-full lg:fixed lg:left-0 lg:top-0 h-screen', isOpen ? 'w-full fixed inset-0 z-50' : 'hidden']">
 	<div class="h-full w-full lg:max-w-[280px] lg:border-r bg-brand-white border-brand-primary flex flex-col justify-between p-6">
 		<div class="flex flex-col gap-6">
 			<section class="flex items-center justify-between">

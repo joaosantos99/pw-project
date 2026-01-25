@@ -6,6 +6,7 @@ import {
   GOALS_UNITS_LABELS,
 } from "@/constants/goals";
 import { useGoals } from "@/composables/useGoals";
+import { useToast } from "@/composables/useToast";
 import { useAuthStore } from "@/stores/auth";
 
 export default {
@@ -65,6 +66,8 @@ export default {
 
       this.isSubmitting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { createGoal } = useGoals();
         await createGoal(this.userId, {
@@ -73,10 +76,12 @@ export default {
           unit: this.formData.unit,
           value: Number(this.formData.value),
         });
+        showSuccess("Goal created successfully!");
         this.$emit("created");
         this.close();
       } catch (error) {
         console.error("Error creating goal:", error);
+        showError(error.message || "Failed to create goal. Please try again.");
       } finally {
         this.isSubmitting = false;
       }

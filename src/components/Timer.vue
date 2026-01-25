@@ -1,6 +1,7 @@
 <script>
 import { mapState } from "pinia";
 import { useTimerStore } from "@/stores/timerStore";
+import { useToast } from "@/composables/useToast";
 import { PlayIcon, PauseIcon, RotateCcwIcon, Volume2Icon, VolumeXIcon } from "lucide-vue-next";
 import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
@@ -84,10 +85,14 @@ export default {
 		},
 
 		async handleSaveSession() {
+			const { showSuccess, showError } = useToast();
+
 			try {
 				await this.timerStore.saveSession();
+				showSuccess("Session saved successfully!");
 			} catch (error) {
 				console.error("Failed to save session:", error);
+				showError(error.message || "Failed to save session. Please try again.");
 			}
 		},
 

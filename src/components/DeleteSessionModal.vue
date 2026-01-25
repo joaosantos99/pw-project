@@ -2,6 +2,7 @@
 import Modal from "@/components/primitives/Modal.vue";
 import Button from "@/components/primitives/Button.vue";
 import { useStudySessions } from "@/composables/useStudySessions";
+import { useToast } from "@/composables/useToast";
 
 export default {
   name: "DeleteSessionModal",
@@ -45,13 +46,17 @@ export default {
 
       this.isDeleting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { deleteStudySession } = useStudySessions();
         await deleteStudySession(this.session.id);
+        showSuccess("Session deleted successfully!");
         this.$emit("deleted");
         this.close();
       } catch (error) {
         console.error("Error deleting session:", error);
+        showError(error.message || "Failed to delete session. Please try again.");
       } finally {
         this.isDeleting = false;
       }

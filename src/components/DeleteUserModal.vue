@@ -3,6 +3,7 @@ import Modal from "@/components/primitives/Modal.vue";
 import Button from "@/components/primitives/Button.vue";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
 import { useUsers } from "@/composables/useUsers";
+import { useToast } from "@/composables/useToast";
 
 export default {
 	name: "DeleteUserModal",
@@ -47,16 +48,20 @@ export default {
 
 			this.isDeleting = true;
 
-			try {
-				const { deleteUser } = useUsers();
-				await deleteUser(this.user.id);
-				this.$emit("deleted");
-				this.close();
-			} catch (error) {
-				console.error("Error deleting user:", error);
-			} finally {
-				this.isDeleting = false;
-			}
+      const { showSuccess, showError } = useToast();
+
+      try {
+        const { deleteUser } = useUsers();
+        await deleteUser(this.user.id);
+        showSuccess("User deleted successfully!");
+        this.$emit("deleted");
+        this.close();
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        showError(error.message || "Failed to delete user. Please try again.");
+      } finally {
+        this.isDeleting = false;
+      }
 		},
 	},
 };

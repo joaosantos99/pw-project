@@ -4,6 +4,7 @@ import InputField from "@/components/primitives/InputField.vue";
 import Button from "@/components/primitives/Button.vue";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
 import { useSubjects } from "@/composables/useSubjects";
+import { useToast } from "@/composables/useToast";
 
 export default {
   name: "EditSubjectModal",
@@ -61,16 +62,20 @@ export default {
 
       this.isSubmitting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { updateSubject } = useSubjects();
         await updateSubject(this.subject.id, {
           name: this.formData.name,
           color: this.formData.color,
         });
+        showSuccess("Subject updated successfully!");
         this.$emit("updated");
         this.close();
       } catch (error) {
         console.error("Error updating subject:", error);
+        showError(error.message || "Failed to update subject. Please try again.");
       } finally {
         this.isSubmitting = false;
       }

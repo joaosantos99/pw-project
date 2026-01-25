@@ -3,7 +3,9 @@ import { RouterView } from "vue-router";
 import Header from "@/components/Header.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Chatbot from "@/components/Chatbot.vue";
+import Toaster from "@/components/primitives/Toaster.vue";
 import { useAuth } from "@/composables/useAuth";
+import { useToast } from "@/composables/useToast";
 
 export default {
 	name: "App",
@@ -12,6 +14,15 @@ export default {
 		Sidebar,
 		Chatbot,
 		RouterView,
+		Toaster,
+	},
+
+	setup() {
+		const { toasts, removeToast } = useToast();
+		return {
+			toasts,
+			removeToast,
+		};
 	},
 
 	data() {
@@ -54,4 +65,5 @@ export default {
   <main id="main-content" v-else>
     <RouterView />
   </main>
+  <Toaster :toasts="toasts" @close="removeToast" />
 </template>

@@ -4,6 +4,7 @@ import InputField from "@/components/primitives/InputField.vue";
 import Button from "@/components/primitives/Button.vue";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
 import { useSubjects } from "@/composables/useSubjects";
+import { useToast } from "@/composables/useToast";
 import { useAuthStore } from "@/stores/auth";
 
 export default {
@@ -62,16 +63,20 @@ export default {
 
       this.isSubmitting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { createSubject } = useSubjects();
         await createSubject(this.userId, {
           name: this.formData.name,
           color: this.formData.color,
         });
+        showSuccess("Subject created successfully!");
         this.$emit("created");
         this.close();
       } catch (error) {
         console.error("Error creating subject:", error);
+        showError(error.message || "Failed to create subject. Please try again.");
       } finally {
         this.isSubmitting = false;
       }

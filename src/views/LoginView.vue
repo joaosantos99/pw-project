@@ -7,6 +7,7 @@ import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
 import InputField from "@/components/primitives/InputField.vue";
 import { useAuth } from "@/composables/useAuth";
+import { useToast } from "@/composables/useToast";
 import { LAYOUTS } from "@/constants/layout";
 import { useAuthStore } from "@/stores/auth";
 import { validateEmail } from "@/utils/validators";
@@ -51,11 +52,14 @@ export default {
 				return;
 			}
 
+			const { showSuccess, showError } = useToast();
+
 			try {
 				await this.login(email, password);
+				showSuccess("Login successful! Welcome back.");
 			} catch (error) {
 				console.error("Error logging in:", error);
-				this.error = error.message;
+				showError(error.message || "Failed to login. Please check your credentials.");
 			} finally {
 				if (this.isAuthenticated) {
 					this.$router.push("/");

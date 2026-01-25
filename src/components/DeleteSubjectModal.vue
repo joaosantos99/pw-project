@@ -3,6 +3,7 @@ import Modal from "@/components/primitives/Modal.vue";
 import Button from "@/components/primitives/Button.vue";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
 import { useSubjects } from "@/composables/useSubjects";
+import { useToast } from "@/composables/useToast";
 
 export default {
   name: "DeleteSubjectModal",
@@ -47,13 +48,17 @@ export default {
 
       this.isDeleting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { deleteSubject } = useSubjects();
         await deleteSubject(this.subject.id);
+        showSuccess("Subject deleted successfully!");
         this.$emit("deleted");
         this.close();
       } catch (error) {
         console.error("Error deleting subject:", error);
+        showError(error.message || "Failed to delete subject. Please try again.");
       } finally {
         this.isDeleting = false;
       }

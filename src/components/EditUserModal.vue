@@ -4,6 +4,7 @@ import InputField from "@/components/primitives/InputField.vue";
 import Button from "@/components/primitives/Button.vue";
 import { BUTTON_VARIANTS } from "@/constants/buttons";
 import { useUsers } from "@/composables/useUsers";
+import { useToast } from "@/composables/useToast";
 
 export default {
 	name: "EditUserModal",
@@ -64,20 +65,24 @@ export default {
 
 			this.isSubmitting = true;
 
-			try {
-				const { updateUser } = useUsers();
-				await updateUser(this.user.id, {
-					name: this.formData.name,
-					email: this.formData.email,
-					isAdmin: this.formData.isAdmin,
-				});
-				this.$emit("updated");
-				this.close();
-			} catch (error) {
-				console.error("Error updating user:", error);
-			} finally {
-				this.isSubmitting = false;
-			}
+      const { showSuccess, showError } = useToast();
+
+      try {
+        const { updateUser } = useUsers();
+        await updateUser(this.user.id, {
+          name: this.formData.name,
+          email: this.formData.email,
+          isAdmin: this.formData.isAdmin,
+        });
+        showSuccess("User updated successfully!");
+        this.$emit("updated");
+        this.close();
+      } catch (error) {
+        console.error("Error updating user:", error);
+        showError(error.message || "Failed to update user. Please try again.");
+      } finally {
+        this.isSubmitting = false;
+      }
 		},
 	},
 };

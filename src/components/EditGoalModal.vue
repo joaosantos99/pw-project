@@ -6,6 +6,7 @@ import {
   GOALS_UNITS_LABELS,
 } from "@/constants/goals";
 import { useGoals } from "@/composables/useGoals";
+import { useToast } from "@/composables/useToast";
 import Modal from "@/components/primitives/Modal.vue";
 import Button from "@/components/primitives/Button.vue";
 import InputField from "@/components/primitives/InputField.vue";
@@ -80,6 +81,8 @@ export default {
 
       this.isSubmitting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { updateGoal } = useGoals();
         await updateGoal(this.goal.id, {
@@ -88,10 +91,12 @@ export default {
           unit: this.formData.unit,
           value: Number(this.formData.value),
         });
+        showSuccess("Goal updated successfully!");
         this.$emit("updated");
         this.close();
       } catch (error) {
         console.error("Error updating goal:", error);
+        showError(error.message || "Failed to update goal. Please try again.");
       } finally {
         this.isSubmitting = false;
       }

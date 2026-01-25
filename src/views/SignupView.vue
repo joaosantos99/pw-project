@@ -7,6 +7,7 @@ import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
 import InputField from "@/components/primitives/InputField.vue";
 import { useAuth } from "@/composables/useAuth";
+import { useToast } from "@/composables/useToast";
 import { LAYOUTS } from "@/constants/layout";
 import { useAuthStore } from "@/stores/auth";
 import { validateEmail, validateSignupPassword } from "@/utils/validators";
@@ -63,11 +64,14 @@ export default {
 				return;
 			}
 
+			const { showSuccess, showError } = useToast();
+
 			try {
 				await this.signup(name, email, password);
+				showSuccess("Account created successfully! Welcome!");
 			} catch (error) {
 				console.error("Error signing up:", error);
-				this.error = error.message;
+				showError(error.message || "Failed to create account. Please try again.");
 			} finally {
 				if (this.isAuthenticated) {
 					this.$router.push("/");

@@ -9,6 +9,7 @@ import Button from "@/components/primitives/Button.vue";
 import Card from "@/components/primitives/Card.vue";
 import Modal from "@/components/primitives/Modal.vue";
 import { useAuthStore } from "@/stores/auth";
+import { useToast } from "@/composables/useToast";
 import { get, put, del } from "@/utils/api";
 import { API_URL } from "@/constants/env";
 import { setLocalStorage } from "@/utils/localStorage";
@@ -70,6 +71,8 @@ export default {
 				return;
 			}
 
+			const { showSuccess, showError } = useToast();
+
 			try {
 				const users = await get(API_URL, `users?id=${this.userId}`);
 				const [user] = users;
@@ -91,8 +94,10 @@ export default {
 				setLocalStorage("auth", this.auth);
 
 				this.profileError = "";
+				showSuccess("Profile updated successfully!");
 			} catch (error) {
 				this.profileError = error.message || "Failed to update profile";
+				showError(error.message || "Failed to update profile");
 			}
 		},
 		handleCancelProfile() {
@@ -120,6 +125,8 @@ export default {
 				return;
 			}
 
+			const { showSuccess, showError } = useToast();
+
 			try {
 				const users = await get(API_URL, `users?id=${this.userId}`);
 				const [user] = users;
@@ -131,6 +138,7 @@ export default {
 
 				if (user.password !== this.currentPassword) {
 					this.passwordError = "Current password is incorrect";
+					showError("Current password is incorrect");
 					return;
 				}
 
@@ -143,8 +151,10 @@ export default {
 				this.newPassword = "";
 				this.confirmPassword = "";
 				this.passwordError = "";
+				showSuccess("Password changed successfully!");
 			} catch (error) {
 				this.passwordError = error.message || "Failed to change password";
+				showError(error.message || "Failed to change password");
 			}
 		},
 		handleDeleteAccount() {
@@ -163,13 +173,15 @@ export default {
 
 			this.isDeleting = true;
 
+			const { showError } = useToast();
+
 			try {
 				await del(API_URL, `users/${this.userId}`);
 				await this.logout();
 				this.$router.push("/login");
 			} catch (error) {
 				console.error("Error deleting account:", error);
-				alert("Failed to delete account. Please try again.");
+				showError("Failed to delete account. Please try again.");
 				this.isDeleting = false;
 			}
 		},

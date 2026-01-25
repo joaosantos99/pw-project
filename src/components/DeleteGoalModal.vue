@@ -2,6 +2,7 @@
 import Modal from "@/components/primitives/Modal.vue";
 import Button from "@/components/primitives/Button.vue";
 import { useGoals } from "@/composables/useGoals";
+import { useToast } from "@/composables/useToast";
 
 export default {
   name: "DeleteGoalModal",
@@ -45,13 +46,17 @@ export default {
 
       this.isDeleting = true;
 
+      const { showSuccess, showError } = useToast();
+
       try {
         const { deleteGoal } = useGoals();
         await deleteGoal(this.goal.id);
+        showSuccess("Goal deleted successfully!");
         this.$emit("deleted");
         this.close();
       } catch (error) {
         console.error("Error deleting goal:", error);
+        showError(error.message || "Failed to delete goal. Please try again.");
       } finally {
         this.isDeleting = false;
       }

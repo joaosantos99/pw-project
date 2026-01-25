@@ -292,7 +292,7 @@ export default {
 			<TrophyIcon size="20" class="text-brand-primary" />
 			<h3 class="text-lg font-semibold text-brand-primary">Level {{ level }}</h3>
 		</div>
-		<p class="text-sm text-brand-primary">{{ currentXP }} / {{ xpNeeded }} XP</p>
+		<p class="text-sm text-brand-primary">{{ currentXP.toFixed(0) }} / {{ xpNeeded.toFixed(0) }} XP</p>
 		<div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
 			<div
 				class="bg-brand-primary h-full rounded-full transition-all"

@@ -53,6 +53,8 @@
         :id="id"
         :name="name"
         :value="modelValue"
+        :aria-invalid="!!error"
+        :aria-describedby="error ? `${id}-error` : undefined"
         @change="handleChange"
       >
         <option value="" disabled v-if="placeholder">{{ placeholder }}</option>
@@ -64,6 +66,13 @@
           {{ option.label }}
         </option>
       </select>
-      <p class="text-sm text-brand-secondary" v-if="error">{{ error }}</p>
+      <p
+        v-if="error"
+        :id="`${id}-error`"
+        class="text-sm text-brand-secondary"
+        role="alert"
+      >
+        {{ error }}
+      </p>
     </div>
   </template>

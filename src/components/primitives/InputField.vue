@@ -54,8 +54,17 @@ export default {
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"
+      :aria-invalid="!!error"
+      :aria-describedby="error ? `${id}-error` : undefined"
       @input="handleInput"
     />
-    <p class="text-sm text-brand-secondary" v-if="error">{{ error }}</p>
+    <p
+      v-if="error"
+      :id="`${id}-error`"
+      class="text-sm text-brand-secondary"
+      role="alert"
+    >
+      {{ error }}
+    </p>
   </div>
 </template>

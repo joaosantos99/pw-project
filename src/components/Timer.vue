@@ -121,8 +121,8 @@ export default {
   <Card title="Pomodoro Timer" subtitle="Stay focused and take regular breaks">
     <div class="flex flex-col items-center gap-6">
       <!-- Circular Timer -->
-      <div class="relative flex items-center justify-center">
-        <svg class="transform -rotate-90" width="240" height="240">
+      <div class="relative flex items-center justify-center" role="timer" :aria-label="`Timer: ${formattedTime}, ${status}`">
+        <svg class="transform -rotate-90" width="240" height="240" aria-hidden="true">
           <!-- Background circle -->
           <circle
             cx="120"
@@ -148,8 +148,8 @@ export default {
           />
         </svg>
         <div class="absolute flex flex-col items-center justify-center">
-          <div class="text-6xl font-bold text-brand-primary">{{ formattedTime }}</div>
-          <div class="text-sm text-brand-primary mt-2">{{ status }}</div>
+          <div class="text-6xl font-bold text-brand-primary" aria-live="polite" aria-atomic="true">{{ formattedTime }}</div>
+          <div class="text-sm text-brand-primary mt-2" aria-live="polite">{{ status }}</div>
         </div>
       </div>
 
@@ -160,6 +160,7 @@ export default {
           variant="primary"
           class="px-8"
           :onClick="handleToggleTimer"
+          :aria-label="isRunning ? 'Pause timer' : 'Start timer'"
         >
           {{ isRunning ? "Pause" : "Start" }}
         </Button>
@@ -168,14 +169,17 @@ export default {
           variant="outline"
           class="px-8"
           :onClick="handleReset"
+          aria-label="Reset timer"
         >
           Reset
         </Button>
         <button
           class="p-2 text-brand-primary hover:opacity-70 cursor-pointer"
           @click="handleToggleMute"
+          :aria-label="isMuted ? 'Unmute notifications' : 'Mute notifications'"
+          :aria-pressed="isMuted"
         >
-          <component :is="isMuted ? VolumeXIcon : Volume2Icon" size="22" />
+          <component :is="isMuted ? VolumeXIcon : Volume2Icon" size="22" aria-hidden="true" />
         </button>
       </div>
     </div>

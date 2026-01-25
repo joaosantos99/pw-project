@@ -46,12 +46,15 @@ export default {
       BUTTON_VARIANT_CLASSES[variant],
       customClass
     ]"
+    :disabled="disabled"
+    :aria-disabled="disabled"
     @click="onClick"
   >
     <component
       v-if="icon"
       :is="icon"
       size="22"
+      aria-hidden="true"
     />
 
     <div class="flex flex-col text-left leading-tight">

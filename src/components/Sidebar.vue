@@ -113,10 +113,17 @@ export default {
 	<div class="h-full w-full lg:max-w-[280px] lg:border-r bg-brand-white border-brand-primary flex flex-col justify-between p-6">
 		<div class="flex flex-col gap-6">
 			<section class="flex items-center justify-between">
-				<img src="../assets/logo.svg" alt="logo" class="w-60 h-full object-contain" />
-				<X v-if="isOpen" @click="$emit('close')" class="lg:hidden cursor-pointer text-brand-primary" />
+				<img src="../assets/logo.svg" alt="Study Tracker logo" class="w-60 h-full object-contain" />
+				<button
+					v-if="isOpen"
+					@click="$emit('close')"
+					class="lg:hidden cursor-pointer text-brand-primary"
+					aria-label="Close navigation menu"
+				>
+					<X aria-hidden="true" />
+				</button>
         	</section>
-			<section class="flex flex-col gap-2">
+			<nav class="flex flex-col gap-2" aria-label="Main navigation">
 			<MenuItem
 				v-for="item in menuItemsWithActiveState"
 				:key="item.label"
@@ -125,7 +132,7 @@ export default {
 				:to="item.to"
 				:is-active="item.isActive"
 			/>
-			</section>
+			</nav>
 		</div>
 		<section class="border-t border-brand-primary">
 			<p class="text-xs text-center pt-4">Track your learning journey!</p>

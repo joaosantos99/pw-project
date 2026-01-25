@@ -37,10 +37,12 @@ export default {
       { 'bg-brand-primary text-brand-white': isActive },
     ]"
     :to="to"
+    :aria-current="isActive ? 'page' : undefined"
   >
     <component
       :is="icon"
       size="22"
+      aria-hidden="true"
     />
     <span :class="[{ 'text-brand-white': isActive }]">{{ label }}</span>
   </RouterLink>

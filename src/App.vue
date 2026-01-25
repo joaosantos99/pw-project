@@ -44,12 +44,14 @@ export default {
   <div v-if="shouldShowLayout" class="w-full flex">
     <Sidebar :is-open="isMenuOpen" @close="isMenuOpen = false"/>
     <div class="w-full">
-      <Header @show-menu="isMenuOpen = true"/>
-      <div class="w-full flex flex-col gap-4 p-6 pt-[104px]">
+      <Header :is-menu-open="isMenuOpen" @show-menu="isMenuOpen = true"/>
+      <main id="main-content" class="w-full flex flex-col gap-4 p-6 pt-[104px]">
         <RouterView />
-      </div>
+      </main>
     </div>
     <Chatbot />
   </div>
-  <RouterView v-else />
+  <main id="main-content" v-else>
+    <RouterView />
+  </main>
 </template>

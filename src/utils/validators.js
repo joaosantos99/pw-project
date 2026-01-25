@@ -21,7 +21,7 @@ export const validateSignupPassword = (password) => {
 	// - At least one special character
 	// - At least 8 characters long
 	const passwordRegex =
-		/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+		/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&\-*.,]).{8,}$/;
 	const passwordError =
 		"Password must contain at least one uppercase letter, one lowercase letter, one number, one special character and be at least 8 characters long";
 

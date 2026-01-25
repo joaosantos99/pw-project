@@ -1,6 +1,6 @@
 <script>
 import { computed, onMounted, ref } from "vue";
-import { BookOpen, Clock, Filter, Search, Trash2 } from "lucide-vue-next";
+import { BookOpen, Clock, Search, Trash2 } from "lucide-vue-next";
 
 import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
@@ -23,7 +23,6 @@ export default {
 		DeleteSessionModal,
 		Search,
 		BookOpen,
-		Filter,
 		Trash2,
 		Clock,
 	},
@@ -248,9 +247,6 @@ export default {
               placeholder="Search sessions..."
               class="w-full text-sm p-2 border border-brand-primary"
             />
-            <Button :icon="Filter" variant="outline" class="flex">
-              Filter
-            </Button>
           </form>
           <div v-if="isLoading" class="text-center py-8">Loading sessions...</div>
           <table v-else class="table-auto w-full">

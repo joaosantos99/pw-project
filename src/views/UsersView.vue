@@ -5,7 +5,7 @@ import EditUserModal from "@/components/EditUserModal.vue";
 import DeleteUserModal from "@/components/DeleteUserModal.vue";
 import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
-import { PencilIcon, Trash2Icon, ShieldIcon, Filter } from "lucide-vue-next";
+import { PencilIcon, Trash2Icon, ShieldIcon } from "lucide-vue-next";
 import { useUsers } from "@/composables/useUsers";
 import { useAuthStore } from "@/stores/auth";
 
@@ -19,7 +19,6 @@ export default {
 		DeleteUserModal,
 		Card,
 		Button,
-		Filter,
 		PencilIcon,
 		Trash2Icon,
 		ShieldIcon,
@@ -29,7 +28,6 @@ export default {
 		PencilIcon,
 		Trash2Icon,
 		ShieldIcon,
-		Filter,
 		users: [],
 		isLoading: false,
 		searchQuery: "",
@@ -105,7 +103,6 @@ export default {
 					placeholder="Search users..."
 					class="w-full text-sm p-2 border border-brand-primary"
 				/>
-				<Button :icon="Filter" variant="outline" class="flex">Filter</Button>
 			</form>
 			<div v-if="isLoading" class="text-center py-8">Loading users...</div>
 			<table v-else class="table-auto w-full">

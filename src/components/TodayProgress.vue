@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
 import { useGoals } from "@/composables/useGoals";
+import { normalizeDate, parseDurationToHours } from "@/utils/dates";
 
 export default {
 	name: "TodayProgress",
@@ -14,32 +15,6 @@ export default {
 
 		const todayHours = ref(0);
 		const dailyGoal = ref(4);
-
-		// Parse duration string to hours
-		const parseDurationToHours = (durationStr) => {
-			if (!durationStr) return 0;
-
-			let totalMinutes = 0;
-			const hourMatch = durationStr.match(/(\d+)h/);
-			const minuteMatch = durationStr.match(/(\d+)m/);
-			const secondMatch = durationStr.match(/(\d+)s/);
-
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-			return totalMinutes / 60;
-		};
-
-		// Normalize date to YYYY-MM-DD format
-		const normalizeDate = (date) => {
-			const d = new Date(date);
-			if (isNaN(d.getTime())) return null;
-			const year = d.getFullYear();
-			const month = String(d.getMonth() + 1).padStart(2, "0");
-			const day = String(d.getDate()).padStart(2, "0");
-			return `${year}-${month}-${day}`;
-		};
 
 		// Calculate today's progress
 		const calculateTodayProgress = async () => {

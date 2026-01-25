@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
+import { parseDurationToHours, parseDurationToMinutes } from "@/utils/dates";
 
 export default {
 	name: "QuickStats",
@@ -13,38 +14,6 @@ export default {
 		const totalSessions = ref(0);
 		const totalHours = ref(0);
 		const avgSessionMinutes = ref(0);
-
-		// Parse duration string to hours
-		const parseDurationToHours = (durationStr) => {
-			if (!durationStr) return 0;
-
-			let totalMinutes = 0;
-			const hourMatch = durationStr.match(/(\d+)h/);
-			const minuteMatch = durationStr.match(/(\d+)m/);
-			const secondMatch = durationStr.match(/(\d+)s/);
-
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-			return totalMinutes / 60;
-		};
-
-		// Parse duration string to minutes
-		const parseDurationToMinutes = (durationStr) => {
-			if (!durationStr) return 0;
-
-			let totalMinutes = 0;
-			const hourMatch = durationStr.match(/(\d+)h/);
-			const minuteMatch = durationStr.match(/(\d+)m/);
-			const secondMatch = durationStr.match(/(\d+)s/);
-
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-			return totalMinutes;
-		};
 
 		// Calculate stats
 		const calculateStats = async () => {

@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from "vue";
 import { VisXYContainer, VisGroupedBar, VisAxis } from "@unovis/vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
+import { normalizeDate, parseDurationToHours } from "@/utils/dates";
 
 export default {
 	name: "BarChart",
@@ -55,32 +56,6 @@ export default {
 			}));
 		};
 		const chartData = ref(getInitialData());
-
-		// Parse duration string (e.g., "4m", "1h 30m", "45s") to hours
-		const parseDurationToHours = (durationStr) => {
-			if (!durationStr) return 0;
-
-			let totalMinutes = 0;
-			const hourMatch = durationStr.match(/(\d+)h/);
-			const minuteMatch = durationStr.match(/(\d+)m/);
-			const secondMatch = durationStr.match(/(\d+)s/);
-
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-			return totalMinutes / 60;
-		};
-
-		// Normalize date to YYYY-MM-DD format for comparison
-		const normalizeDate = (date) => {
-			const d = new Date(date);
-			if (isNaN(d.getTime())) return null;
-			const year = d.getFullYear();
-			const month = String(d.getMonth() + 1).padStart(2, "0");
-			const day = String(d.getDate()).padStart(2, "0");
-			return `${year}-${month}-${day}`;
-		};
 
 		// Process sessions and aggregate by day
 		const processSessionsData = async () => {

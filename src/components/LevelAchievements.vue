@@ -9,6 +9,7 @@ import {
 	ACHIEVEMENT_CATEGORIES,
 } from "@/constants/achievements";
 import { TIMES_PERSETS_DURATION } from "@/constants/times";
+import { parseDurationToMinutes } from "@/utils/dates";
 
 export default {
 	name: "LevelAchievements",
@@ -28,17 +29,6 @@ export default {
 		const earnedAchievements = ref([]);
 		const sessions = ref([]);
 		const goals = ref([]);
-
-		// Parse duration string to minutes
-		const parseDurationToMinutes = (duration) => {
-			if (!duration) return 0;
-			let totalMinutes = 0;
-			const hourMatch = duration.match(/(\d+)h/);
-			const minuteMatch = duration.match(/(\d+)m/);
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			return totalMinutes;
-		};
 
 		// Calculate streak from sessions
 		const calculateStreak = (sessions) => {

@@ -8,6 +8,7 @@ import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
+import { parseDurationToMinutes } from "@/utils/dates";
 
 export default {
 	name: "SessionsView",
@@ -31,22 +32,6 @@ export default {
 		const sessions = ref([]);
 		const isLoading = ref(false);
 		const searchQuery = ref("");
-
-		// Parse duration string (e.g., "4m", "1h 30m", "45s") to minutes
-		const parseDurationToMinutes = (durationStr) => {
-			if (!durationStr) return 0;
-
-			let totalMinutes = 0;
-			const hourMatch = durationStr.match(/(\d+)h/);
-			const minuteMatch = durationStr.match(/(\d+)m/);
-			const secondMatch = durationStr.match(/(\d+)s/);
-
-			if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-			if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-			if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-			return totalMinutes;
-		};
 
 		// Format minutes to display string
 		const formatDuration = (minutes) => {

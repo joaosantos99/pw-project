@@ -15,6 +15,7 @@ import {
   GOALS_TABS_LABELS,
   GOALS_UNITS,
 } from "@/constants/goals";
+import { parseDurationToHours } from "@/utils/dates";
 
 export default {
 	name: "GoalsView",
@@ -94,20 +95,7 @@ export default {
       if (!dateStr) return null;
       return new Date(dateStr);
     },
-    parseDurationToHours(durationStr) {
-      if (!durationStr) return 0;
-
-      let totalMinutes = 0;
-      const hourMatch = durationStr.match(/(\d+)h/);
-      const minuteMatch = durationStr.match(/(\d+)m/);
-      const secondMatch = durationStr.match(/(\d+)s/);
-
-      if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-      if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
-      if (secondMatch) totalMinutes += parseInt(secondMatch[1]) / 60;
-
-      return totalMinutes / 60;
-    },
+    parseDurationToHours,
     getSessionsForPeriod(timePeriod) {
       const now = new Date();
       let startDate;

@@ -8,6 +8,7 @@ import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
+import { useSubjects } from "@/composables/useSubjects";
 import { parseDurationToMinutes } from "@/utils/dates";
 
 export default {
@@ -28,8 +29,10 @@ export default {
 	setup() {
 		const authStore = useAuthStore();
 		const { getStudySessions, deleteStudySession } = useStudySessions();
+		const { getSubjects } = useSubjects();
 
 		const sessions = ref([]);
+		const subjects = ref([]);
 		const isLoading = ref(false);
 		const searchQuery = ref("");
 
@@ -63,6 +66,58 @@ export default {
 			}
 		};
 
+		const fetchSubjects = async () => {
+			if (!authStore.auth?.user?.id) return;
+
+			try {
+				subjects.value = await getSubjects(authStore.auth.user.id);
+			} catch (error) {
+				console.error("Error fetching subjects:", error);
+			}
+		};
+
+		const subjectColorMap = computed(() => {
+			const map = {};
+			subjects.value.forEach(subject => {
+				if (subject.name && subject.color) {
+					map[subject.name.trim().toLowerCase()] = subject.color;
+				}
+			});
+			return map;
+		});
+
+		const getSubjectColor = (subjectName) => {
+			if (!subjectName) return "#3e43f0";
+			const normalizedName = subjectName.trim().toLowerCase();
+			return subjectColorMap.value[normalizedName] || "#3e43f0";
+		};
+
+		const getLuminance = (hex) => {
+			const rgb = hex.match(/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+			if (!rgb) return 0.5;
+
+			const r = parseInt(rgb[1], 16) / 255;
+			const g = parseInt(rgb[2], 16) / 255;
+			const b = parseInt(rgb[3], 16) / 255;
+
+			const [rs, gs, bs] = [r, g, b].map(val => {
+				return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+			});
+
+			return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+		};
+
+		const getContrastTextColor = (backgroundColor) => {
+			const luminance = getLuminance(backgroundColor);
+			if (luminance < 0.3) {
+				return "#ffffff";
+			} else if (luminance < 0.6) {
+				return "#1f2937";
+			} else {
+				return "#000000";
+			}
+		};
+
 		const handleDelete = async (sessionId) => {
 			if (!confirm("Are you sure you want to delete this session?")) return;
 
@@ -78,11 +133,12 @@ export default {
 			if (!searchQuery.value) return sessions.value;
 
 			const query = searchQuery.value.toLowerCase();
-			return sessions.value.filter(session =>
-				session.subject?.toLowerCase().includes(query) ||
-				session.notes?.toLowerCase().includes(query) ||
-				session.date?.toLowerCase().includes(query)
-			);
+			return sessions.value.filter(session => {
+				const subject = session.subject || "Unspecified";
+				return subject.toLowerCase().includes(query) ||
+					session.notes?.toLowerCase().includes(query) ||
+					session.date?.toLowerCase().includes(query);
+			});
 		});
 
 		const totalSessions = computed(() => sessions.value.length);
@@ -105,6 +161,7 @@ export default {
 
 		onMounted(() => {
 			fetchSessions();
+			fetchSubjects();
 		});
 
 		return {
@@ -116,6 +173,8 @@ export default {
 			totalHours,
 			avgDuration,
 			handleDelete,
+			getSubjectColor,
+			getContrastTextColor,
 		};
 	},
 };
@@ -208,7 +267,13 @@ export default {
               </tr>
               <tr v-for="session in filteredSessions" :key="session.id" class="border-b">
                 <td class="px-0.5 py-3">
-                  <span class="text-xs bg-blue-300 px-2 py-1">{{ session.subject }}</span>
+                  <span
+                    class="text-xs px-2 py-1"
+                    :style="{
+                      backgroundColor: getSubjectColor(session.subject),
+                      color: getContrastTextColor(getSubjectColor(session.subject))
+                    }"
+                  >{{ session.subject || "Unspecified" }}</span>
                 </td>
                 <td class="py-4">{{ session.duration }}</td>
                 <td class="py-4">{{ session.date }}</td>

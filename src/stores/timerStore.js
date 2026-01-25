@@ -48,6 +48,12 @@ export const useTimerStore = defineStore("timer", {
 				...saved,
 			};
 
+			// Clear notes and subject if there's no active session
+			if (restored.timerSegments.length === 0 && restored.sessionStartTime === null) {
+				restored.notes = "";
+				restored.subject = null;
+			}
+
 			return restored;
 		}
 
@@ -101,22 +107,24 @@ export const useTimerStore = defineStore("timer", {
 	},
 
 	actions: {
-		startTimer() {
-			if (this.isRunning) {
-				return;
-			}
+	startTimer() {
+		if (this.isRunning) {
+			return;
+		}
 
-			this.timerSegments.push({
-				start: Date.now(),
-				end: null,
-			});
+		this.timerSegments.push({
+			start: Date.now(),
+			end: null,
+		});
 
-			if (this.sessionStartTime === null) {
-				this.sessionStartTime = Date.now();
-			}
+		if (this.sessionStartTime === null) {
+			this.sessionStartTime = Date.now();
+			this.notes = "";
+			this.subject = null;
+		}
 
-			this.persist();
-		},
+		this.persist();
+	},
 
 		pauseTimer() {
 			if (!this.isRunning) {
@@ -137,11 +145,12 @@ export const useTimerStore = defineStore("timer", {
 			}
 		},
 
-		resetTimer() {
-			this.timerSegments = [];
-			this.sessionStartTime = null;
-			this.persist();
-		},
+	resetTimer() {
+		this.timerSegments = [];
+		this.sessionStartTime = null;
+		this.notes = "";
+		this.persist();
+	},
 
 		setPreset(preset) {
 			const durationMinutes = TIMES_PERSETS_DURATION[preset];
@@ -196,7 +205,9 @@ export const useTimerStore = defineStore("timer", {
 				hour12: true,
 			});
 
-			const subjectName = this.subject?.name || "Unspecified";
+			const subjectName = (this.subject && typeof this.subject === "object" && this.subject.name) 
+			? this.subject.name 
+			: "Unspecified";
 
 			const payload = {
 				user_id: userId,

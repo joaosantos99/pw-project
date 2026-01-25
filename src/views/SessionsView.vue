@@ -6,6 +6,7 @@ import ContentHeader from "@/components/ContentHeader.vue";
 import PageWrapper from "@/components/PageWrapper.vue";
 import Card from "@/components/primitives/Card.vue";
 import Button from "@/components/primitives/Button.vue";
+import DeleteSessionModal from "@/components/DeleteSessionModal.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useStudySessions } from "@/composables/useStudySessions";
 import { useSubjects } from "@/composables/useSubjects";
@@ -19,6 +20,7 @@ export default {
 		PageWrapper,
 		Card,
 		Button,
+		DeleteSessionModal,
 		Search,
 		BookOpen,
 		Filter,
@@ -35,6 +37,7 @@ export default {
 		const subjects = ref([]);
 		const isLoading = ref(false);
 		const searchQuery = ref("");
+		const deleteModalRef = ref(null);
 
 		// Format minutes to display string
 		const formatDuration = (minutes) => {
@@ -118,15 +121,15 @@ export default {
 			}
 		};
 
-		const handleDelete = async (sessionId) => {
-			if (!confirm("Are you sure you want to delete this session?")) return;
-
-			try {
-				await deleteStudySession(sessionId);
-				await fetchSessions();
-			} catch (error) {
-				console.error("Error deleting study session:", error);
+		const handleDelete = (sessionId) => {
+			const session = sessions.value.find(s => s.id === sessionId);
+			if (session && deleteModalRef.value) {
+				deleteModalRef.value.open(session);
 			}
+		};
+
+		const handleSessionDeleted = () => {
+			fetchSessions();
 		};
 
 		const filteredSessions = computed(() => {
@@ -173,8 +176,10 @@ export default {
 			totalHours,
 			avgDuration,
 			handleDelete,
+			handleSessionDeleted,
 			getSubjectColor,
 			getContrastTextColor,
+			deleteModalRef,
 		};
 	},
 };
@@ -292,6 +297,7 @@ export default {
           </table>
         </Card>
     </div>
+    <DeleteSessionModal ref="deleteModalRef" @deleted="handleSessionDeleted" />
   </PageWrapper>
 
 </template>

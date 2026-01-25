@@ -25,7 +25,7 @@
     mounted() {
       this.previousActiveElement = document.activeElement;
       this.$nextTick(() => {
-        const modalElement = this.$el?.querySelector('[role="dialog"]');
+        const modalElement = this.$refs.dialogElement;
         if (modalElement) {
           modalElement.focus();
         }
@@ -66,6 +66,7 @@
       role="presentation"
     ></div>
     <div
+      ref="dialogElement"
       class="w-[420px] z-2 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-white border-brand-primary p-6"
       role="dialog"
       aria-modal="true"

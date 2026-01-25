@@ -65,18 +65,39 @@ VITE_GEMINI_API_KEY=your_gemini_api_key_here
 
 ### Environment Variables
 
-- `VITE_API_URL`: Backend API URL (default: `http://localhost:3000`)
+- `VITE_API_URL`: Backend API URL (default: `http://localhost:3010`)
 - `VITE_GEMINI_API_KEY`: Your Google Gemini API key for chatbot functionality
 
 ### JSON Server Setup
 
-The project uses JSON Server for mock API during development. Start the server with:
+The project uses JSON Server for mock API during development.
+
+1. Create a `db.json` file in the root directory with the following structure:
+
+```json
+{
+  "users": [],
+  "sessions": [],
+  "goals": [],
+  "subjects": [],
+  "studySessions": []
+}
+```
+
+2. Start the server with:
 
 ```bash
 npm run server
 ```
 
 This will start the JSON Server on port 3010.
+
+**Note**: The `db.json` file structure includes:
+- `users`: Array of user objects with `id`, `name`, `email`, `password`, and `isAdmin` fields
+- `sessions`: Array of session objects with `id`, `user_id`, and `secret` fields
+- `goals`: Array of goal objects with `id`, `user_id`, `title`, `time_period`, `unit`, and `value` fields
+- `subjects`: Array of subject objects with `id`, `user_id`, `name`, and `color` fields
+- `studySessions`: Array of study session objects with `id`, `user_id`, `subject`, `duration`, `date`, `time`, and `notes` fields
 
 ## Running the Project
 
